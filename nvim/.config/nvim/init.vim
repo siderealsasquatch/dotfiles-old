@@ -11,30 +11,30 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter'
-Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
 Plug 'jiangmiao/auto-pairs'
-" Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-
-" Aesthetic plugins
-"Plug 'edkolev/promptline.vim'
-"Plug 'edkolev/tmuxline.vim'
-Plug 'powerline/fonts', { 'do': './install.sh' }
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 " Vim colors
 Plug 'reedes/vim-colors-pencil'
 Plug 'morhetz/gruvbox'
-Plug 'mhartington/oceanic-next'
 Plug 'rakr/vim-one'
-Plug 'dylanaraps/crayon'
-Plug 'w0ng/vim-hybrid'
 Plug 'Marfisc/vorange'
 Plug 'dikiaap/minimalist'
-Plug 'jordwalke/flatlandia'
-Plug 'bcicen/vim-vice'
 Plug 'ashfinal/vim-colors-violet'
 Plug 'ashfinal/vim-colors-paper'
-Plug 'fneu/breezy'
+Plug 'KabbAmine/yowish.vim'
+Plug 'nanotech/jellybeans.vim'
+Plug 'AlessandroYorba/Sierra'
+Plug 'AlessandroYorba/Alduin'
+Plug 'danilo-augusto/vim-afterglow'
+
+" Fonts and other things
+Plug 'powerline/fonts', { 'do' : './install.sh' }
 
 call plug#end()
 
@@ -47,13 +47,6 @@ nmap <space> <leader>
 
 " Remap Escape key
 imap jk <Esc>
-
-" Unbind the cursor keys in insert, normal, and visual modes
-for prefix in ['i', 'n', 'v']
-	for key in ['<Up>', '<Down>', '<Left>', '<Right>']
-		exe prefix . "noremap " . key . " <Nop>"
-	endfor
-endfor
 
 " Disable mouse support
 set mouse=""
@@ -92,9 +85,10 @@ set smarttab
 " extensions
 set tw=90
 
-" Have tabs be expanded to spaces for Python, R, and m files
+" Have tabs be expanded to spaces for Python, R, and Markdown files
 au FileType python setlocal expandtab tw=80
 au FileType r setlocal expandtab tw=80
+au FileType markdown setlocal expandtab ts=2 tw=90
 
 " Have tabs be kept tabs in text, c++, java, and scala files
 au FileType text setlocal noexpandtab tw=90
@@ -128,7 +122,8 @@ nmap <leader>o o<Esc>
 nmap <leader>O O<Esc>
 
 " Make current pane the only visible pane
-nmap <leader>on :on<CR>
+" Just use <C-w>o instead. It's acutally much easier.
+"nmap <leader>on :on<CR>
 
 "--------------
 " Window splits
@@ -191,7 +186,6 @@ nmap <tab> :b#<CR>
 " Close/delete current buffer
 nmap <C-C> :bd<CR>
 
-
 "----------------
 " Vim colorscheme
 "----------------
@@ -205,8 +199,10 @@ endif
 set background=dark
 
 " Set the vim colorscheme
-color breezy
-let g:airline_theme = 'breezy'
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_italic = 1
+color gruvbox
+"let g:airline_theme = 'vorange'
 
 "---------------
 " Airline plugin
@@ -223,7 +219,7 @@ let g:airline_powerline_fonts = 1
 let g:airline_skip_empty_sections = 1
 
 " Enable the list of buffers
-let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#enabled = 1
 
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
@@ -285,17 +281,24 @@ nmap gct <leader>c<space>
 " Toggle comment state of individual comment
 nmap gci <leader>ci
 
-"------------------
-" Promptline plugin
-" -----------------
-" let g:promptline_preset = {
-" 	\'a'	: ['\h', '\u'],
-" 	\'c'	: [ '\W' ]}
-
 "---------------------
 " YouCompleteMe plugin
 "---------------------
+
+" Set a global conf file
 let g:ycm_global_ycm_extra_conf = "~/.ycm_extra_conf.py"
+
+" Have YCM use the system python rather than the virtual env
+" I'll have to figure out how to make YCM use the python interpreter in a virtual env
+let g:ycm_server_python_interpreter='/usr/bin/python'
+
+" Automatically close the preview split after completion
+let g:ycm_autoclose_preview_window_after_completion = 1
+
+" Automatically close the preview split after insertion
+let g:ycm_autoclose_preview_window_after_insertion = 1
+
+" Have YCM use eclim for Java autocompletion
 " let g:EclimCompletionMethod = 'omnifunc'
 
 "-----------------
@@ -307,3 +310,13 @@ let g:syntastic_cpp_compiler = "g++"
 
 " Set Syntastic C++ compiler options
 let g:syntastic_cpp_compiler_options = "-std=c++11 -stdlib=libc++"
+
+"--------------------
+" Vim Markdown plugin
+"--------------------
+
+" Disable folding
+let g:vim_markdown_folding_disabled = 1
+
+" Set indentation (i.e. tabwidth) to 2
+let g:vim_markdwon_new_list_item_indent = 2

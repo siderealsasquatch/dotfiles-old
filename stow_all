@@ -1,0 +1,17 @@
+#!/bin/bash
+# Recreate my working environment by stowing all the files in my .dotfiles dir
+
+# The contents of each sub-directory in .dotfiles as well as the names of the
+# applications to stow
+CONTENTS=( 	.config/aurgetrc .bashrc .config/nvim/init.vim .Rprofile .inputrc .tmux.conf \
+			.Xmodmap )
+APPS=( aurget bash nvim R readline tmux xmodmap )
+
+# Stow the contents
+END=$(( ${#APPS[@]} - 1 ))
+for i in $(seq 0 $END); do
+	if [[ -f ~/${CONTENTS[$i]} ]]; then
+		rm ~/${CONTENTS[$i]}
+	fi
+	stow ${APPS[$i]}
+done

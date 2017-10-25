@@ -2,8 +2,8 @@
 .libPaths(c('~/.Rlibs', .libPaths()))
 
 #Load packages
-library(pacman)
-p_load(ggplot2, gridExtra, grid, reshape2, dplyr, utils)
+#library(pacman)
+#p_load(ggplot2, gridExtra, grid, reshape2, dplyr, utils)
 #library(utils)
 
 # Set install.packages to install to ~/.Rilbs

@@ -1,7 +1,7 @@
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+	*i*) ;;
+	*) return;;
 esac
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -36,8 +36,10 @@ export EDITOR="nvim"
 export PAGER="less"
 
 # Set 256 colors
-#export TERM=xterm-256color
 [[ -n "$TMUX" ]] && export TERM=xterm-256color
+
+# Add ~/bin to the system path
+export PATH=~/bin:$PATH
 
 #####################
 # Other Shell Stuff #
@@ -170,6 +172,20 @@ source /usr/bin/virtualenvwrapper.sh
 # Programming aliases
 #====================
 
+# git
+#----
+
+# Create and initialize a git repo
+gitrepo() {
+	REPONAMES=( "$@" )
+	for repo in ${REPONAMES[@]}; do
+		mkdir $repo
+		cd $repo
+		git init
+		cd ..
+	done
+}
+
 # C++
 #----
 
@@ -219,15 +235,10 @@ alias eclimd='~/.eclipse/org.eclipse.platform_4.6.2_155965261_linux_gtk_x86_64/e
 # Aliases for databases/web development
 #======================================
 
-# Start MySQL with vim keybindings enabled
-#-----------------------------------------
-mysql() {
-	rlwrap -aPassword: mysql "$@"
-}
-
-# Start MySQL with root account and vim keybindings enabled
-#----------------------------------------------------------
-alias mysqlroot='rlwrap -aPassword: mysql -u root -p'
+# Start MySQL with root account
+#------------------------------
+# Maria DB already uses readline
+alias mysqlroot='mysql -u root -p'
 
 #==========
 # Net stuff
@@ -262,8 +273,8 @@ alias vimstuff='cd ~/linux_stuff/vim_stuff'
 alias linstuff='cd ~/linux_stuff'
 
 # Stuff pertaining to python programming
-alias pyproj='cd ~/programming_lang_stuff/Python/python_projects'
-alias pyprac='cd ~/programming_lang_stuff/Python/Practice'
+alias pyproj='cd ~/programming/langs/Python/python_projects'
+alias pyprac='cd ~/programming/langs/Python/Practice'
 alias pynoteprog='cd /mnt/windows2/Programming/Python/"Textbook Exercises"/"Python for Programming"'
 alias pynotesci='cd /mnt/windows2/Programming/Python/"Textbook Exercises"/"Python for Scientific Computing"'
 alias pynotegui='cd /mnt/windows2/Programming/Python/"Textbook Exercises"/"Python GUI Programming"'
@@ -272,30 +283,33 @@ alias pynotegui='cd /mnt/windows2/Programming/Python/"Textbook Exercises"/"Pytho
 alias haskmain='cd /mnt/windows2/Programming/Haskell'
 alias haskbook='cd /mnt/windows2/Programming/Haskell/textbook_stuff'
 
-# Programming directory in ~/programming_lang_stuff
+# Programming directory in ~/programming/langs
 # Main directory
-alias pymain='cd ~/programming_lang_stuff/Python'
-alias javamain='cd ~/programming_lang_stuff/Java'
-alias cppmain='cd ~/programming_lang_stuff/C++'
+alias pymain='cd ~/programming/langs/Python'
+alias javamain='cd ~/programming/langs/Java'
+alias cppmain='cd ~/programming/langs/C++'
 # Book
-alias pybook='cd ~/programming_lang_stuff/Python/textbook_notes'
-alias cppbook='cd ~/programming_lang_stuff/C++/book_exercises'
-alias perlbook='cd ~/programming_lang_stuff/Perl'
-alias sabook='cd ~/programming_lang_stuff/sed_and_awk'
-alias rubook='cd ~/programming_lang_stuff/Ruby'
-alias elixbook='cd ~/programming_lang_stuff/Elixir'
-alias julbook='cd ~/programming_lang_stuff/Julia'
-alias scripts='cd ~/programming_lang_stuff/Scripts'
-alias gitbook='cd ~/programming_lang_stuff/Git/textbook_notes'
-alias rbook='cd ~/programming_lang_stuff/R/textbook_notes'
-alias scalbook='cd ~/programming_lang_stuff/scala/textbook_notes'
-alias javabook='cd ~/programming_lang_stuff/Java/textbook_notes'
-alias mysqlbook='cd ~/programming_lang_stuff/MySQL/textbook_notes'
+alias pybook='cd ~/programming/langs/Python/textbook_notes'
+alias cppbook='cd ~/programming/langs/C++/book_exercises'
+alias perlbook='cd ~/programming/langs/Perl'
+alias sabook='cd ~/programming/langs/sed_and_awk'
+alias rubook='cd ~/programming/langs/Ruby'
+alias elixbook='cd ~/programming/langs/Elixir'
+alias julbook='cd ~/programming/langs/Julia'
+alias scripts='cd ~/programming/langs/Scripts'
+alias gitbook='cd ~/programming/version_control/Git/textbook_notes'
+alias rbook='cd ~/programming/langs/R/textbook_notes'
+alias scalbook='cd ~/programming/langs/scala/textbook_notes'
+alias javabook='cd ~/programming/langs/Java/textbook_notes'
+alias mysqlbook='cd ~/programming/langs/MySQL/textbook_notes'
+
+# Stuff pertaining to database_stuff directory
+alias databasemain='cd ~/database_stuff'
+alias databasebook='cd ~/database_stuff/book_stuff'
 
 # Top level of all programming directories
-alias proglang='cd ~/programming_lang_stuff'
-alias progproj='cd ~/programming_projects'
-alias progexp='cd ~/programming_experimentation'
+alias proglang='cd ~/programming/langs'
+alias progproj='cd ~/programming/projects'
 
 # Stuff pertaining to MATLAB
 alias matstuff='cd /mnt/windows2/Programming/MATLAB'
@@ -305,7 +319,8 @@ alias proctrl='cd /mnt/windows2/Programming/MATLAB/"Process Control"'
 alias ncs='cd /mnt/windows2/Programming/MATLAB/"Control Systems with Wireless Networking"'
 
 # Stuff pertaining to college classes
-alias schoolmain='cd /mnt/windows2/"School Stuff"'
+alias schoolstuff='cd /mnt/windows2/"School Stuff"'
+alias scholarships='cd /mnt/windows2/"School Stuff"/scholarship_stuff'
 alias contproc='cd /mnt/windows2/"School Stuff"/"College Classes"/Praktikum/"Praktikum Kendali Proses"'
 alias kkn='cd /mnt/windows2/"School Stuff"/KKN'
 alias thesis='cd /mnt/windows2/"School Stuff"/"Undergrad Thesis"'
@@ -322,6 +337,15 @@ alias linalgnote='cd /mnt/windows2/"School Stuff"/"Textbook Notes"/Math/lin_alg'
 alias optnote='cd /mnt/windows2/"School Stuff"/"Textbook Notes"/Math/optimization'
 alias numethnote='cd /mnt/windows2/"School Stuff"/"Textbook Notes"/Math/numerical_methods'
 alias datscinote='cd /mnt/windows2/"School Stuff"/"Textbook Notes"/Data_Science'
+
+# Windows directories
+alias winstuff='cd /mnt/windows2/'
+alias winsystuff='cd /mnt/windows1/'
+
+# Internship stuff
+alias internmain='cd /mnt/windows2/Internship'
+alias internomp='cd /mnt/windows2/Internship/OMP_testing'
+alias internomptext='cd /mnt/windows2/Internship/OMP_testing/important_text_files'
 
 #====================
 # Convenience aliases
