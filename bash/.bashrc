@@ -400,3 +400,15 @@ cdlsd() {
 
 # Clear screen and list directory contents
 alias cls='clear && ls'
+
+#================================
+# Stuff for command line programs
+#================================
+
+# Autojump
+#---------
+
+# Enable j wrapper around autojump
+if [[ -s ~/.autojump/etc/profile.d/autojump.sh ]]; then
+	source ~/.autojump/etc/profile.d/autojump.sh
+fi
