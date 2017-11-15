@@ -72,6 +72,9 @@ set hidden
 " Highlight search terms
 set hlsearch
 
+" Disable mode indicators
+set noshowmode
+
 " Remove highlighting after a search
 nmap <leader>nh :noh<CR>
 
