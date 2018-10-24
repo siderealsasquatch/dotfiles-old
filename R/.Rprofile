@@ -17,14 +17,15 @@ options(width = 80)
 
 # Overwrite 'quit' function to disable save prompt upon quitting
 # Figure out exactly what this does
-assignInNamespace(
-	'q',
-	function(save = 'no', status = 0, runLast = T)
-	{
-		.Internal(quit(save, status, runLast))
-	},
-	'base'
-)
+# Make it work. For some reason, this function is not working.
+#assignInNamespace(
+	#'q',
+	#function(save = 'no', status = 0, runLast = T)
+	#{
+		#.Internal(quit(save, status, runLast))
+	#},
+	#'base'
+#)
 
 # Set CRAN mirror
 local({

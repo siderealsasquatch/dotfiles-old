@@ -219,6 +219,15 @@ cppdir() {
 alias ipython='clear && ipython --no-banner'
 # alias ipython='clear && rlwrap -a ipython --no-banner'
 
+# Update all packages in all virtualenvs
+pipupdateall() {
+	for env in $(lsvirtualenv | perl -ne 'print if /^\w/'); do
+		workon ${env}
+		pip freeze | awk -F== '{print $1}' | xargs pip install -U
+		deactivate
+	done
+}
+
 # R
 #--
 
@@ -247,21 +256,16 @@ alias mysqlroot='mysql -u root -p'
 # Ping google to test internet connectivity
 alias testnet='ping -c 3 www.google.com'
 
-#============================================
-# Aliases for tmux and other related programs
-#============================================
+#================
+# Udacity aliases
+#================
 
-# Force tmux to assume that all terminals running within it support 256-colors
-# alias tmux='tmux -2'
-# alias tmux='TERM=xterm-256color; tmux'
-# alias tmux="env TERM=xterm-256color tmux"
+# Resetting file permissions in project repos
+#--------------------------------------------
 
-#===============
-# Matlab aliases
-#===============
-
-# Run MATLAB in the terminal without the graphical aspects
-#alias matterm='rlwrap -a matlab -nodesktop -nosplash -r "clc"'
+expreset() {
+	find . -type f -! -name "*.R" -perm 777 -exec chmod 644 {} +
+}
 
 #==================================
 # Aliases for accessing directories

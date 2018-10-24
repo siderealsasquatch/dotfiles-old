@@ -3,9 +3,9 @@
 
 # The contents of each sub-directory in .dotfiles as well as the names of the
 # applications to stow
-CONTENTS=( 	.config/aurgetrc .bashrc .config/nvim/init.vim .Rprofile .inputrc .tmux.conf \
+CONTENTS=( 	.bashrc .config/nvim/init.vim .Rprofile .inputrc .tmux.conf \
 			.Xmodmap .ycm_extra_conf.py )
-APPS=( aurget bash nvim R readline tmux xmodmap ycm_extra_conf )
+APPS=( bash nvim R readline tmux xmodmap ycm_extra_conf )
 
 # Stow the contents
 END=$(( ${#APPS[@]} - 1 ))

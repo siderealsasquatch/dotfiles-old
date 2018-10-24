@@ -18,6 +18,7 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+Plug 'shmup/vim-sql-syntax'
 
 " Vim colors
 Plug 'reedes/vim-colors-pencil'
@@ -32,6 +33,13 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'AlessandroYorba/Sierra'
 Plug 'AlessandroYorba/Alduin'
 Plug 'danilo-augusto/vim-afterglow'
+Plug 'ayu-theme/ayu-vim'
+Plug 'trevordmiller/nova-vim'
+Plug 'nightsense/snow'
+Plug 'challenger-deep-theme/vim', { 'as' : 'challenger-deep' }
+Plug 'mhartington/oceanic-next'
+Plug 'srcery-colors/srcery-vim'
+Plug 'jnurmine/Zenburn'
 
 " Fonts and other things
 Plug 'powerline/fonts', { 'do' : './install.sh' }
@@ -91,6 +99,7 @@ set tw=90
 " Have tabs be expanded to spaces for Python, R, and Markdown files
 au FileType python setlocal expandtab tw=80
 au FileType r setlocal expandtab tw=80
+au FileType rmd setlocal expandtab tw=80
 au FileType markdown setlocal expandtab ts=2 tw=90
 
 " Have tabs be kept tabs in text, c++, java, and scala files
@@ -199,12 +208,21 @@ if (has("termguicolors"))
 endif
 
 " Set the background color
-set background=dark
+"set background=dark
 
 " Set the vim colorscheme
-let g:gruvbox_contrast_dark = 'hard'
-let g:gruvbox_italic = 1
-color gruvbox
+"let g:gruvbox_contrast_dark = 'hard'
+"let g:gruvbox_italic = 1
+let g:oceanic_next_terminal_bold = 1
+let g:oceanic_next_terminal_italic = 1
+"let g:srcery_italic = 1
+"let g:srcery_bold = 1
+"let g:sierra_Sunset = 1
+"color gruvbox
+color OceanicNext
+let g:airline_theme = 'oceanicnext'
+"let g:airline_theme = 'snow_dark'
+"let g:airline_theme = 'moonfly'
 "let g:airline_theme = 'vorange'
 
 "---------------
@@ -226,6 +244,11 @@ let g:airline_skip_empty_sections = 1
 
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
+
+" Don't use powerline separators
+" Only set this if using non-powerline-patched fonts
+"let g:airline_left_sep = ''
+"let g:airline_right_sep = ''
 
 "-------------
 " CtrlP Plug
