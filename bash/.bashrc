@@ -82,6 +82,9 @@ greP() {
 # Make pacman display colored output
 alias pacman='pacman --color auto'
 
+# Lock yay to the aur
+alias yay='yay --aur'
+
 # Sourcing .bashrc file
 # ---------------------
 alias srcbash='source ~/.bashrc'
@@ -165,8 +168,8 @@ vim() {
 # Python
 #-------
 
-export WORKON_HOME=~/.pyenvs
-source /usr/bin/virtualenvwrapper.sh
+#export WORKON_HOME=~/.pyenvs
+#source /usr/bin/virtualenvwrapper.sh
 
 #====================
 # Programming aliases
@@ -271,86 +274,6 @@ expreset() {
 # Aliases for accessing directories
 #==================================
 
-# Stuff pertaining to linux in general
-alias linbook='cd ~/linux_stuff/stuff_from_books'
-alias vimstuff='cd ~/linux_stuff/vim_stuff'
-alias linstuff='cd ~/linux_stuff'
-
-# Stuff pertaining to python programming
-alias pyproj='cd ~/programming/langs/Python/python_projects'
-alias pyprac='cd ~/programming/langs/Python/Practice'
-alias pynoteprog='cd /mnt/windows2/Programming/Python/"Textbook Exercises"/"Python for Programming"'
-alias pynotesci='cd /mnt/windows2/Programming/Python/"Textbook Exercises"/"Python for Scientific Computing"'
-alias pynotegui='cd /mnt/windows2/Programming/Python/"Textbook Exercises"/"Python GUI Programming"'
-
-# Stuff pertaining to Haskell programming
-alias haskmain='cd /mnt/windows2/Programming/Haskell'
-alias haskbook='cd /mnt/windows2/Programming/Haskell/textbook_stuff'
-
-# Programming directory in ~/programming/langs
-# Main directory
-alias pymain='cd ~/programming/langs/Python'
-alias javamain='cd ~/programming/langs/Java'
-alias cppmain='cd ~/programming/langs/C++'
-# Book
-alias pybook='cd ~/programming/langs/Python/textbook_notes'
-alias cppbook='cd ~/programming/langs/C++/book_exercises'
-alias perlbook='cd ~/programming/langs/Perl'
-alias sabook='cd ~/programming/langs/sed_and_awk'
-alias rubook='cd ~/programming/langs/Ruby'
-alias elixbook='cd ~/programming/langs/Elixir'
-alias julbook='cd ~/programming/langs/Julia'
-alias scripts='cd ~/programming/langs/Scripts'
-alias gitbook='cd ~/programming/version_control/Git/textbook_notes'
-alias rbook='cd ~/programming/langs/R/textbook_notes'
-alias scalbook='cd ~/programming/langs/scala/textbook_notes'
-alias javabook='cd ~/programming/langs/Java/textbook_notes'
-alias mysqlbook='cd ~/programming/langs/MySQL/textbook_notes'
-
-# Stuff pertaining to database_stuff directory
-alias databasemain='cd ~/database_stuff'
-alias databasebook='cd ~/database_stuff/book_stuff'
-
-# Top level of all programming directories
-alias proglang='cd ~/programming/langs'
-alias progproj='cd ~/programming/projects'
-
-# Stuff pertaining to MATLAB
-alias matstuff='cd /mnt/windows2/Programming/MATLAB'
-alias dynsys='cd /mnt/windows2/Programming/MATLAB/"Dynamic Systems"'
-alias guiprog='cd /mnt/windows2/Programming/MATLAB/"GUI Programming"'
-alias proctrl='cd /mnt/windows2/Programming/MATLAB/"Process Control"'
-alias ncs='cd /mnt/windows2/Programming/MATLAB/"Control Systems with Wireless Networking"'
-
-# Stuff pertaining to college classes
-alias schoolstuff='cd /mnt/windows2/"School Stuff"'
-alias scholarships='cd /mnt/windows2/"School Stuff"/scholarship_stuff'
-alias contproc='cd /mnt/windows2/"School Stuff"/"College Classes"/Praktikum/"Praktikum Kendali Proses"'
-alias kkn='cd /mnt/windows2/"School Stuff"/KKN'
-alias thesis='cd /mnt/windows2/"School Stuff"/"Undergrad Thesis"'
-alias robotics='cd /mnt/windows2/"School Stuff"/"College Classes"/Robotics'
-alias prak='cd /mnt/windows2/"School Stuff"/"College Classes"/Praktikum'
-
-# Stuff pertaining to textbooks and their notes
-alias textnote='cd /mnt/windows2/"School Stuff"/"Textbook Notes"'
-alias statnote='cd /mnt/windows2/"School Stuff"/"Textbook Notes"/Math/Statistics'
-alias probnote='cd /mnt/windows2/"School Stuff"/"Textbook Notes"/Math/Probability'
-alias mlnote='cd /mnt/windows2/"School Stuff"/"Textbook Notes"/"Machine Learning"'
-alias algnote='cd /mnt/windows2/"School Stuff"/"Textbook Notes"/Algorithms'
-alias linalgnote='cd /mnt/windows2/"School Stuff"/"Textbook Notes"/Math/lin_alg'
-alias optnote='cd /mnt/windows2/"School Stuff"/"Textbook Notes"/Math/optimization'
-alias numethnote='cd /mnt/windows2/"School Stuff"/"Textbook Notes"/Math/numerical_methods'
-alias datscinote='cd /mnt/windows2/"School Stuff"/"Textbook Notes"/Data_Science'
-
-# Windows directories
-alias winstuff='cd /mnt/windows2/'
-alias winsystuff='cd /mnt/windows1/'
-
-# Internship stuff
-alias internmain='cd /mnt/windows2/Internship'
-alias internomp='cd /mnt/windows2/Internship/OMP_testing'
-alias internomptext='cd /mnt/windows2/Internship/OMP_testing/important_text_files'
-
 #====================
 # Convenience aliases
 #====================
@@ -416,3 +339,10 @@ alias cls='clear && ls'
 if [[ -s ~/.autojump/etc/profile.d/autojump.sh ]]; then
 	source ~/.autojump/etc/profile.d/autojump.sh
 fi
+
+#================
+# Aesthetic stuff
+#================
+
+# Import colorscheme from pywal asynchronously
+(cat ~/.cache/wal/sequences &)

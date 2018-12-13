@@ -1,17 +1,22 @@
 #!/bin/bash
 # Recreate my working environment by stowing all the files in my .dotfiles dir
 
+# TODO: Work on incorporating i3 into this script.
+
 # The contents of each sub-directory in .dotfiles as well as the names of the
 # applications to stow
-CONTENTS=( 	.bashrc .config/nvim/init.vim .Rprofile .inputrc .tmux.conf \
-			.Xmodmap .ycm_extra_conf.py )
-APPS=( bash nvim R readline tmux xmodmap ycm_extra_conf )
+CONTENTS=( .bashrc .config/nvim/init.vim .config/i3/config \
+	   .Rprofile .inputrc .tmux.conf .Xmodmap .ycm_extra_conf.py )
+APPS=( bash nvim i3 R readline tmux xmodmap ycm_extra_conf )
 
 # Stow the contents
 END=$(( ${#APPS[@]} - 1 ))
 for i in $(seq 0 $END); do
 	if [[ -f ~/${CONTENTS[$i]} ]]; then
 		rm ~/${CONTENTS[$i]}
+	fi
+	if [[ ${CONTENTS[$i]} == */* ]]; then
+		mkdir -p ~/${CONTENTS[$i]%/*}
 	fi
 	stow ${APPS[$i]}
 done
