@@ -1,22 +1,69 @@
 #!/bin/bash
-# Recreate my working environment by stowing all the files in my .dotfiles dir
+#
+# stow_all - Recreate my working environment by stowing all the files in my
+# .dotfiles dir
+#
 
-# TODO: Work on incorporating i3 into this script.
+# Set target directory
+TARGET_DIR="/home/fahmi/test"
+
+# Nvim setup
+config_nvim() {
+	nvim_dir_path="$1"
+
+	for subdir in autoload plugged; do
+		nvim_subdirs="${nvim_dir_path}/${subdir}"
+		if [[ -d "${nvim_subdirs}" ]]; then
+			rm -f "${nvim_subdirs}"/*
+		fi
+	done
+
+	init_vim_path="${nvim_dir_path}/init.vim"
+	if [[ -f "${init_vim_path}" ]]; then
+		rm "${init_vim_path}"
+	fi
+}
+
+# i3 setup
+config_i3() {
+	i3_dir_path="$1"
+
+	i3_subdir="${i3_dir_path}/block_scripts"
+	if [[ -d "${i3_subdir}" ]]; then
+		rm -f "${i3_subdir}"/*
+	fi
+	if [[ -n "$(ls -A ${i3_dir_path})" ]]; then
+		find "${i3_dir_path}" -type f -delete
+	fi
+}
+
+# Main stow loop
 
 # The contents of each sub-directory in .dotfiles as well as the names of the
 # applications to stow
-CONTENTS=( .bashrc .config/nvim/init.vim .config/i3/config \
-	   .Rprofile .inputrc .tmux.conf .Xmodmap .ycm_extra_conf.py )
+CONTENTS=( .bashrc .config/nvim .config/i3 .Rprofile .inputrc .tmux.conf \
+			.Xmodmap .ycm_extra_conf.py )
 APPS=( bash nvim i3 R readline tmux xmodmap ycm_extra_conf )
 
 # Stow the contents
 END=$(( ${#APPS[@]} - 1 ))
 for i in $(seq 0 $END); do
-	if [[ -f ~/${CONTENTS[$i]} ]]; then
-		rm ~/${CONTENTS[$i]}
+	FULL_PATH="${TARGET_DIR}/${CONTENTS[$i]}"
+	if [[ -d "${FULL_PATH}" ]]; then
+		if [[ "$(basename ${FULL_PATH})" == nvim ]]; then
+			config_nvim "${FULL_PATH}"
+		elif [[ "$(basename ${FULL_PATH})" == i3 ]]; then
+			config_i3 "${FULL_PATH}"
+		fi
+	else
+		if [[ "$(basename ${FULL_PATH})" == nvim ]]; then
+			mkdir -p "${FULL_PATH}"/{autoload,plugged}
+		elif [[ "$(basename ${FULL_PATH})" == i3 ]]; then
+			mkdir -p "${FULL_PATH}"/block_scripts
+		fi
 	fi
-	if [[ ${CONTENTS[$i]} == */* ]]; then
-		mkdir -p ~/${CONTENTS[$i]%/*}
+	if [[ -f "${FULL_PATH}" ]]; then
+		rm "${FULL_PATH}"
 	fi
 	stow ${APPS[$i]}
 done
