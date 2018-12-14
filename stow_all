@@ -4,9 +4,6 @@
 # .dotfiles dir
 #
 
-# Set target directory
-TARGET_DIR="/home/fahmi"
-
 # Nvim setup
 config_nvim() {
 	nvim_dir_path="$1"
@@ -14,7 +11,7 @@ config_nvim() {
 	for subdir in autoload plugged; do
 		nvim_subdirs="${nvim_dir_path}/${subdir}"
 		if [[ -d "${nvim_subdirs}" ]]; then
-			rm -f "${nvim_subdirs}"/*
+			rm -rf "${nvim_subdirs}"/*
 		fi
 	done
 
@@ -39,6 +36,9 @@ config_i3() {
 
 # Main stow loop
 
+# Set target directory
+TARGET_DIR="/home/fahmi"
+
 # The contents of each sub-directory in .dotfiles as well as the names of the
 # applications to stow
 CONTENTS=( .bashrc .config/nvim .config/i3 .Rprofile .inputrc .tmux.conf \
@@ -54,12 +54,16 @@ for i in $(seq 0 $END); do
 			config_nvim "${FULL_PATH}"
 		elif [[ "$(basename ${FULL_PATH})" == i3 ]]; then
 			config_i3 "${FULL_PATH}"
+		elif [[ "$(basename ${FULL_PATH})" == kitty ]]; then
+			rm "${FULL_PATH}"/kitty.conf
 		fi
 	else
 		if [[ "$(basename ${FULL_PATH})" == nvim ]]; then
 			mkdir -p "${FULL_PATH}"/{autoload,plugged}
 		elif [[ "$(basename ${FULL_PATH})" == i3 ]]; then
 			mkdir -p "${FULL_PATH}"/block_scripts
+		elif [[ "$(basename ${FULL_PATH})" == kitty ]]; then
+			mkdir -p "${FULL_PATH}"
 		fi
 	fi
 	if [[ -f "${FULL_PATH}" ]]; then
