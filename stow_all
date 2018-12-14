@@ -5,7 +5,7 @@
 #
 
 # Set target directory
-TARGET_DIR="/home/fahmi/test"
+TARGET_DIR="/home/fahmi"
 
 # Nvim setup
 config_nvim() {
