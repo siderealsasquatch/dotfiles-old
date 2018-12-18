@@ -31,7 +31,8 @@ floating_modifier $mod
 
 # start a terminal
 #bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec kitty
+#bindsym $mod+Return exec kitty # I'd really like to come back to kitty some day
+bindsym $mod+Return exec termite
 
 # kill focused window
 #bindsym $mod+Shift+q kill
@@ -170,8 +171,8 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
 		position top
-        status_command i3blocks -c /home/fahmi/.config/i3/i3blocks.conf
-        i3bar_command i3bar -t
+		status_command i3blocks -c /home/fahmi/.config/i3/i3blocks.conf
+		i3bar_command i3bar -t
 }
 
 #================
@@ -189,7 +190,7 @@ gaps outer 0
 for_window [class="^.*"] border pixel 0
 
 # Set background image
-exec_always --no-startup-id feh --bg-scale ~/Pictures/x2_reaper.jpg
+exec_always --no-startup-id feh --bg-scale ~/Pictures/xcom2-1544822073650-1246.jpg
 
 # Have wal use the last colorscheme
 exec --no-startup-id wal -R
@@ -201,5 +202,21 @@ exec --no-startup-id wal -R
 # Start nm-applet
 exec --no-startup-id nm-applet
 
+# Start pa-applet
+exec --no-startup-id pa-applet
+
 # Start compton
 exec --no-startup-id compton -f
+
+# Start betterlockscreen
+exec --no-startup-id betterlockscreen -w dim
+
+#==========
+# Shortcuts
+#==========
+
+# Open instance of Thunar
+bindsym $mod+t exec Thunar
+
+# Lock screen
+bindsym $mod+Shift+x exec betterlockscreen -l dim

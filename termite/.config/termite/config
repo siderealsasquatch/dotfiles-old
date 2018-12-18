@@ -1,0 +1,5 @@
+[options]
+font = Liberation Mono for Powerline 9
+
+[colors]
+background = rgba(0,0,0,0.8)
