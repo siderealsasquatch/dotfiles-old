@@ -38,6 +38,15 @@ export PAGER="less"
 # Set 256 colors
 [[ -n "$TMUX" ]] && export TERM=xterm-256color
 
+# Make it so that steam closes to the tray
+export STEAM_FRAME_FORCE_CLOSE=1
+
+# Have make use all of the systems cores
+export MAKEFLAGS="-j$(nproc)"
+
+# Add ccache to the system PATH
+export PATH="/usr/lib/ccache/bin:$PATH"
+
 # Add ~/bin to the system path
 export PATH=~/bin:$PATH
 

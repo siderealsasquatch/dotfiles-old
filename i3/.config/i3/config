@@ -169,15 +169,65 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
+
+#======
+# i3bar
+#======
+
+# Set colors for the bar
+#set $bg-color #090c19
+#set $fg-color #8fbdce
+#set $critical-color #2a6da9
+##set $text-color #f3f4f5
+
+# Try getting these colors from Xresources
+set_from_resource $bg-color i3wm.color0 #f0f0f0
+set_from_resource $fg-color i3wm.color7 #f0f0f0
+set_from_resource $inactive-color i3wm.color3
+set_from_resource $critical-color i3wm.color5 #f0f0f0
+#set $text-color #f3f4f5
+
 bar {
+		font pango:Inconsolata for Powerline 9
 		position top
-		status_command i3blocks -c /home/fahmi/.config/i3/i3blocks.conf
-		i3bar_command i3bar -t
+		#status_command i3blocks -c /home/fahmi/.config/i3/i3blocks.conf
+		#status_command ~/src/bumblebee-status/bumblebee-status -m nic disk cpu memory nvidiagpu pasink date time -t wal
+		status_command ~/src/bumblebee-status/bumblebee-status -m nic disk cpu memory pasink date time -t wal
+		
+		colors {
+				background $bg-color
+
+				focused_workspace $fg-color $fg-color $bg-color
+				inactive_workspace $bg-color $bg-color $fg-color
+				urgent_workspace $critical-color $critical-color $fg-color
+		}
 }
 
 #================
 # Aesthetic stuff
 #================
+#
+# Set background image
+exec_always --no-startup-id feh --bg-scale ~/Pictures/xcom2-1544822073650-1246.jpg
+
+# Have wal use the last colorscheme
+exec --no-startup-id wal -R
+
+# Window stuff
+#-------------
+
+# Remove window borders
+for_window [class="^.*"] border pixel 1
+
+# Set window border colors
+# class                 border		backgr.		  text 			indicator 		child_border
+client.focused          $fg-color	$fg-color     $bg-color 	$fg-color       $fg-color
+client.focused_inactive $inactive-color 	$inactive-color     $bg-color 	$inactive-color       $inactive-color
+client.unfocused        $bg-color 	$bg-color     $fg-color  	$bg-color       $bg-color
+client.urgent           $critical-color 	$critical-color     $bg-color  	$critical-color       $critical-color
+client.placeholder      $bg-color 	$bg-color     $fg-color  	$bg-color       $bg-color
+
+client.background       $bg-color
 
 # i3-gaps
 #--------
@@ -186,18 +236,13 @@ bar {
 gaps inner 10
 gaps outer 0
 
-# Remove window borders
-for_window [class="^.*"] border pixel 0
-
-# Set background image
-exec_always --no-startup-id feh --bg-scale ~/Pictures/xcom2-1544822073650-1246.jpg
-
-# Have wal use the last colorscheme
-exec --no-startup-id wal -R
-
 #===================
 # Autostart programs
 #===================
+
+# Start xfce4-power-manager
+#exec --no-startup-id xfce4-power-manager
+exec --no-startup-id mate-power-manager
 
 # Start nm-applet
 exec --no-startup-id nm-applet
@@ -211,6 +256,12 @@ exec --no-startup-id compton -f
 # Start betterlockscreen
 exec --no-startup-id betterlockscreen -w dim
 
+# Start steam in silent mode
+exec --no-startup-id /usr/bin/steam-native -silent %U
+
+# Start alttab
+exec --no-startup-id alttab -bg "#090c10" -frame "#8fbdce"
+
 #==========
 # Shortcuts
 #==========
@@ -219,4 +270,10 @@ exec --no-startup-id betterlockscreen -w dim
 bindsym $mod+t exec Thunar
 
 # Lock screen
-bindsym $mod+Shift+x exec betterlockscreen -l dim
+bindsym $mod+Shift+z exec betterlockscreen -l dim
+
+# Shutdown the system
+bindsym $mod+Shift+x exec shutdown -h now
+
+# Restart the system
+bindsym $mod+x exec shutdown -r now
