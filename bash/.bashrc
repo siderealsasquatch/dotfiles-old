@@ -348,10 +348,3 @@ alias cls='clear && ls'
 if [[ -s ~/.autojump/etc/profile.d/autojump.sh ]]; then
 	source ~/.autojump/etc/profile.d/autojump.sh
 fi
-
-#================
-# Aesthetic stuff
-#================
-
-# Import colorscheme from pywal asynchronously
-(cat ~/.cache/wal/sequences &)

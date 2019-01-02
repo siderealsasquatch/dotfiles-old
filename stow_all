@@ -25,19 +25,6 @@ config_nvim() {
 	fi
 }
 
-# i3 setup
-config_i3() {
-	i3_dir_path="$1"
-
-	i3_subdir="${i3_dir_path}/block_scripts"
-	if [[ -d "${i3_subdir}" ]]; then
-		rm -f "${i3_subdir}"/*
-	fi
-	if [[ -n "$(ls -A ${i3_dir_path})" ]]; then
-		find "${i3_dir_path}" -type f -delete
-	fi
-}
-
 # Delete config files if they exist
 config_del() {
 	full_path="$1"
@@ -45,14 +32,12 @@ config_del() {
 
 	if [[ "${full_path_basename}" == nvim ]]; then
 		config_nvim "${full_path}"
-	elif [[ "${full_path_basename}" == i3 ]]; then
-		config_i3 "${full_path}"
-	elif [[ "${full_path_basename}" == ncmpcpp ]]; then
-		rm "${full_path}"/config
-	elif [[ "${full_path_basename}" == mpd ]]; then
-		rm "${full_path}"/mpd.conf
 	else
-		rm "${full_path}"/*
+		if [[ ! -f "${full_path}" ]]; then
+			rm "${full_path}"/*
+		else
+			rm "${full_path}"
+		fi
 	fi
 }
 
@@ -63,9 +48,7 @@ create_dir_struct() {
 
 	if [[ "${full_path_basename}" == nvim ]]; then
 		mkdir -p "${full_path}"/{autoload,plugged}
-	elif [[ "${full_path_basename}" == i3 ]]; then
-		mkdir -p "${full_path}"/block_scripts
-	else
+	elif [[ "${full_path_basename}" == ranger ]]; then
 		mkdir -p "${full_path}"
 	fi
 }
@@ -77,23 +60,18 @@ TARGET_DIR="/home/fahmi"
 
 # The contents of each sub-directory in .dotfiles as well as the names of the
 # applications to stow
-CONTENTS=( .bashrc .config/nvim .config/i3 .config/dunst .config/mpd \
-		.config/ncmpcpp .config/rofi .config/termite .config/ranger \
-		.Rprofile .inputrc .tmux.conf .Xmodmap .ycm_extra_conf.py )
-APPS=( bash nvim i3 dunst mdp ncmpcpp rofi termite ranger R readline tmux \
-	xmodmap ycm_extra_conf )
+CONTENTS=( .bashrc .config/nvim .config/ranger .Rprofile .inputrc .tmux.conf .Xmodmap \
+	.ycm_extra_conf.py )
+APPS=( bash nvim ranger R readline tmux xmodmap ycm_extra_conf )
 
 # Stow the contents
 END=$(( ${#APPS[@]} - 1 ))
 for i in $(seq 0 $END); do
 	FULL_PATH="${TARGET_DIR}/${CONTENTS[$i]}"
-	if [[ -d "${FULL_PATH}" ]]; then
+	if [[ -e "${FULL_PATH}" ]]; then
 		config_del "${FULL_PATH}"
 	else
 		create_dir_struct "${FULL_PATH}"
-	fi
-	if [[ -f "${FULL_PATH}" ]]; then
-		rm "${FULL_PATH}"
 	fi
 	stow ${APPS[$i]}
 done
