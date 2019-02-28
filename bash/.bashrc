@@ -38,14 +38,8 @@ export PAGER="less"
 # Set 256 colors
 [[ -n "$TMUX" ]] && export TERM=xterm-256color
 
-# Make it so that steam closes to the tray
-export STEAM_FRAME_FORCE_CLOSE=1
-
 # Have make use all of the systems cores
 export MAKEFLAGS="-j$(nproc)"
-
-# Add ccache to the system PATH
-export PATH="/usr/lib/ccache/bin:$PATH"
 
 # Add ~/bin to the system path
 export PATH=~/bin:$PATH
@@ -81,6 +75,16 @@ greP() {
 	grep -P "$@"
 }
 
+#============
+# Work server
+#============
+
+# ssh into the server as admin
+alias as-server-admin='ssh server-admin'
+
+# ssh into the server with your account
+alias as-server-fahmi='ssh server-Fahmi'
+
 #=====================
 # Administrative stuff
 #=====================
@@ -88,11 +92,8 @@ greP() {
 # Package management
 # ------------------
 
-# Make pacman display colored output
-alias pacman='pacman --color auto'
-
-# Lock yay to the aur
-alias yay='yay --aur'
+# Update and upgrade packages
+alias update-and-upgrade='sudo apt update && sudo apt upgrade'
 
 # Sourcing .bashrc file
 # ---------------------
@@ -154,7 +155,7 @@ cpbak() {
 
 # Convert backup files to regular files
 unbak() {
-	perl-rename 's/\.bak$//' "$@"
+	rename 's/\.bak$//' "$@"
 }
 
 # Create an alias to the perl-rename command
@@ -202,55 +203,49 @@ gitrepo() {
 #----
 
 # Compile program
-cppcpl() {
-	FILE="$1"
-	g++ -Wall -std=c++11 -o "${FILE%.*}" "$FILE"
-}
+#cppcpl() {
+	#FILE="$1"
+	#g++ -Wall -std=c++11 -o "${FILE%.*}" "$FILE"
+#}
 
 # Compile and run the program
-cppcplr() {
-	FILE="$1"
-	cppcpl "$FILE"
-	if (( $? == 0 )); then
-		x "${FILE%.*}"
-		./"${FILE%.*}"
-	fi
-}
+#cppcplr() {
+	#FILE="$1"
+	#cppcpl "$FILE"
+	#if (( $? == 0 )); then
+		#x "${FILE%.*}"
+		#./"${FILE%.*}"
+	#fi
+#}
 
 # Create program directory and file both with the same name
-cppdir() {
-	DIR="$1"
-	mkdir $DIR
-	touch $DIR/${DIR}.cpp
-}
+#cppdir() {
+	#DIR="$1"
+	#mkdir $DIR
+	#touch $DIR/${DIR}.cpp
+#}
 
 # Python
 #-------
 
 # Start ipython in a cleared terminal screen
-alias ipython='clear && ipython --no-banner'
+#alias ipython='clear && ipython --no-banner'
 # alias ipython='clear && rlwrap -a ipython --no-banner'
 
 # Update all packages in all virtualenvs
-pipupdateall() {
-	for env in $(lsvirtualenv | perl -ne 'print if /^\w/'); do
-		workon ${env}
-		pip freeze | awk -F== '{print $1}' | xargs pip install -U
-		deactivate
-	done
-}
+#pipupdateall() {
+	#for env in $(lsvirtualenv | perl -ne 'print if /^\w/'); do
+		#workon ${env}
+		#pip freeze | awk -F== '{print $1}' | xargs pip install -U
+		#deactivate
+	#done
+#}
 
 # R
 #--
 
 # Start R in quiet mode
-alias R='clear && R --quiet'
-
-# Java
-#-----
-
-# Start the eclim sever
-alias eclimd='~/.eclipse/org.eclipse.platform_4.6.2_155965261_linux_gtk_x86_64/eclimd'
+#alias R='clear && R --quiet'
 
 #======================================
 # Aliases for databases/web development
@@ -259,7 +254,7 @@ alias eclimd='~/.eclipse/org.eclipse.platform_4.6.2_155965261_linux_gtk_x86_64/e
 # Start MySQL with root account
 #------------------------------
 # Maria DB already uses readline
-alias mysqlroot='mysql -u root -p'
+#alias mysqlroot='mysql -u root -p'
 
 #==========
 # Net stuff
@@ -275,9 +270,9 @@ alias testnet='ping -c 3 www.google.com'
 # Resetting file permissions in project repos
 #--------------------------------------------
 
-expreset() {
-	find . -type f -! -name "*.R" -perm 777 -exec chmod 644 {} +
-}
+#expreset() {
+	#find . -type f -! -name "*.R" -perm 777 -exec chmod 644 {} +
+#}
 
 #==================================
 # Aliases for accessing directories
@@ -345,6 +340,7 @@ alias cls='clear && ls'
 #---------
 
 # Enable j wrapper around autojump
-if [[ -s ~/.autojump/etc/profile.d/autojump.sh ]]; then
-	source ~/.autojump/etc/profile.d/autojump.sh
-fi
+#if [[ -s ~/.autojump/etc/profile.d/autojump.sh ]]; then
+	#source ~/.autojump/etc/profile.d/autojump.sh
+#fi
+. /usr/share/autojump/autojump.bash
