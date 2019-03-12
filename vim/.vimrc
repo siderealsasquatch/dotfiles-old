@@ -1,4 +1,4 @@
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/.vim/plugged')
 
 "-----------
 " My plugins
@@ -12,7 +12,7 @@ Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter'
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
-Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --clang-completer' }
+"Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --clang-completer' }
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'godlygeek/tabular'
@@ -45,7 +45,7 @@ Plug 'cocopon/iceberg.vim'
 Plug 'ayu-theme/ayu-vim'
 
 " Fonts and other things
-Plug 'powerline/fonts', { 'do' : './install.sh' }
+"Plug 'powerline/fonts', { 'do' : './install.sh' }
 
 call plug#end()
 

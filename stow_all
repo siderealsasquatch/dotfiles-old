@@ -4,22 +4,24 @@
 # .dotfiles dir
 #
 
+# TODO: Get this to work with setups that run vim instead of Neovim.
+
 #------------------------------------------------------------------------------
 # Functions for setting up the necessary directories in the ~/.config directory
 #------------------------------------------------------------------------------
 
-# Nvim setup
-config_nvim() {
-	nvim_dir_path="$1"
+# Vim setup
+config_vim() {
+	vim_dir_path="$1"
 
 	for subdir in autoload plugged; do
-		nvim_subdirs="${nvim_dir_path}/${subdir}"
-		if [[ -d "${nvim_subdirs}" ]]; then
-			rm -rf "${nvim_subdirs}"/*
+		vim_subdirs="${vim_dir_path}/${subdir}"
+		if [[ -d "${vim_subdirs}" ]]; then
+			rm -rf "${vim_subdirs}"/*
 		fi
 	done
 
-	init_vim_path="${nvim_dir_path}/init.vim"
+	init_vim_path="$(dirname ${vim_dir_path})/.vimrc"
 	if [[ -f "${init_vim_path}" ]]; then
 		rm "${init_vim_path}"
 	fi
@@ -30,8 +32,8 @@ config_del() {
 	full_path="$1"
 	full_path_basename="$(basename ${full_path})"
 
-	if [[ "${full_path_basename}" == nvim ]]; then
-		config_nvim "${full_path}"
+	if [[ "${full_path_basename}" == vim ]]; then
+		config_vim "${full_path}"
 	else
 		if [[ ! -f "${full_path}" ]]; then
 			rm "${full_path}"/*
@@ -46,7 +48,7 @@ create_dir_struct() {
 	full_path="$1"
 	full_path_basename="$(basename ${full_path})"
 
-	if [[ "${full_path_basename}" == nvim ]]; then
+	if [[ "${full_path_basename}" == vim ]]; then
 		mkdir -p "${full_path}"/{autoload,plugged}
 	elif [[ "${full_path_basename}" == ranger ]]; then
 		mkdir -p "${full_path}"
@@ -60,9 +62,8 @@ TARGET_DIR="/home/fahmi"
 
 # The contents of each sub-directory in .dotfiles as well as the names of the
 # applications to stow
-CONTENTS=( .bashrc .config/nvim .config/ranger .Rprofile .inputrc .tmux.conf .Xmodmap \
-	.ycm_extra_conf.py )
-APPS=( bash nvim ranger R readline tmux xmodmap ycm_extra_conf )
+CONTENTS=( .bashrc .vim .inputrc .tmux.conf .Xmodmap .ycm_extra_conf.py )
+APPS=( bash vim readline tmux xmodmap ycm_extra_conf )
 
 # Stow the contents
 END=$(( ${#APPS[@]} - 1 ))

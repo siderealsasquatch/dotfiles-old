@@ -27,10 +27,10 @@ shopt -s extglob
 #########################
 
 # Set terminal prompt
-PS1='[\u@\h \W]\$ '
+#PS1='[\u@\h \W]\$ '
 
 # Set default editor
-export EDITOR="nvim"
+export EDITOR="vim"
 
 # Set default pager for ranger
 export PAGER="less"
@@ -80,10 +80,10 @@ greP() {
 #============
 
 # ssh into the server as admin
-alias as-server-admin='ssh server-admin'
+alias as-server-admin='ssh as-server-admin'
 
 # ssh into the server with your account
-alias as-server-fahmi='ssh server-Fahmi'
+alias as-server-fahmi='ssh as-server-Fahmi'
 
 #=====================
 # Administrative stuff
@@ -167,9 +167,9 @@ unbak() {
 #===============
 
 # Set nvim to vim
-vim() {
-	nvim "$@"
-}
+#vim() {
+	#nvim "$@"
+#}
 
 #==================
 # Programming Stuff
@@ -199,62 +199,9 @@ gitrepo() {
 	done
 }
 
-# C++
-#----
-
-# Compile program
-#cppcpl() {
-	#FILE="$1"
-	#g++ -Wall -std=c++11 -o "${FILE%.*}" "$FILE"
-#}
-
-# Compile and run the program
-#cppcplr() {
-	#FILE="$1"
-	#cppcpl "$FILE"
-	#if (( $? == 0 )); then
-		#x "${FILE%.*}"
-		#./"${FILE%.*}"
-	#fi
-#}
-
-# Create program directory and file both with the same name
-#cppdir() {
-	#DIR="$1"
-	#mkdir $DIR
-	#touch $DIR/${DIR}.cpp
-#}
-
-# Python
-#-------
-
-# Start ipython in a cleared terminal screen
-#alias ipython='clear && ipython --no-banner'
-# alias ipython='clear && rlwrap -a ipython --no-banner'
-
-# Update all packages in all virtualenvs
-#pipupdateall() {
-	#for env in $(lsvirtualenv | perl -ne 'print if /^\w/'); do
-		#workon ${env}
-		#pip freeze | awk -F== '{print $1}' | xargs pip install -U
-		#deactivate
-	#done
-#}
-
-# R
-#--
-
-# Start R in quiet mode
-#alias R='clear && R --quiet'
-
 #======================================
 # Aliases for databases/web development
 #======================================
-
-# Start MySQL with root account
-#------------------------------
-# Maria DB already uses readline
-#alias mysqlroot='mysql -u root -p'
 
 #==========
 # Net stuff
@@ -262,17 +209,6 @@ gitrepo() {
 
 # Ping google to test internet connectivity
 alias testnet='ping -c 3 www.google.com'
-
-#================
-# Udacity aliases
-#================
-
-# Resetting file permissions in project repos
-#--------------------------------------------
-
-#expreset() {
-	#find . -type f -! -name "*.R" -perm 777 -exec chmod 644 {} +
-#}
 
 #==================================
 # Aliases for accessing directories
@@ -343,4 +279,4 @@ alias cls='clear && ls'
 #if [[ -s ~/.autojump/etc/profile.d/autojump.sh ]]; then
 	#source ~/.autojump/etc/profile.d/autojump.sh
 #fi
-. /usr/share/autojump/autojump.bash
+#. /usr/share/autojump/autojump.bash
