@@ -41,6 +41,9 @@ export PAGER="less"
 # Make it so that steam closes to the tray
 export STEAM_FRAME_FORCE_CLOSE=1
 
+# Test steam runtime heavy
+#export STEAM_RUNTIME_HEAVY=1
+
 # Have make use all of the systems cores
 export MAKEFLAGS="-j$(nproc)"
 
@@ -94,9 +97,17 @@ alias pacman='pacman --color auto'
 # Lock yay to the aur
 alias yay='yay --aur'
 
+#======================
+# General purpose stuff
+#======================
+
 # Sourcing .bashrc file
 # ---------------------
 alias srcbash='source ~/.bashrc'
+
+# Spin up new instance of the shell
+# (This is so that new environement variables and such can take effect)
+alias refresh='exec $SHELL'
 
 # Managing files and directories
 # ------------------------------
@@ -177,7 +188,15 @@ vim() {
 # Python
 #-------
 
-#export WORKON_HOME=~/.pyenvs
+# pyenv stuff
+# NOTE: another bit of pyenv code has been placed near the end of this file to ensure that
+# it's the last thing to modify the PATH.
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+
+# pyenv-virtualenvwrapper stuff
+export WORKON_HOME=~/.pyvirtenvs
+
 #source /usr/bin/virtualenvwrapper.sh
 
 #====================
@@ -194,6 +213,17 @@ gitrepo() {
 		mkdir $repo
 		cd $repo
 		git init
+		cd ..
+	done
+}
+
+# Create and initialize a bare repo
+gitrepobare() {
+	REPONAMES=( "$@" )
+	for repo in ${REPONAMES[@]}; do
+		mkdir $repo
+		cd $repo
+		git init --bare
 		cd ..
 	done
 }
@@ -246,20 +276,9 @@ pipupdateall() {
 # Start R in quiet mode
 alias R='clear && R --quiet'
 
-# Java
-#-----
-
-# Start the eclim sever
-alias eclimd='~/.eclipse/org.eclipse.platform_4.6.2_155965261_linux_gtk_x86_64/eclimd'
-
 #======================================
 # Aliases for databases/web development
 #======================================
-
-# Start MySQL with root account
-#------------------------------
-# Maria DB already uses readline
-alias mysqlroot='mysql -u root -p'
 
 #==========
 # Net stuff
@@ -271,13 +290,6 @@ alias testnet='ping -c 3 www.google.com'
 #================
 # Udacity aliases
 #================
-
-# Resetting file permissions in project repos
-#--------------------------------------------
-
-expreset() {
-	find . -type f -! -name "*.R" -perm 777 -exec chmod 644 {} +
-}
 
 #==================================
 # Aliases for accessing directories
@@ -345,9 +357,10 @@ alias cls='clear && ls'
 #---------
 
 # Enable j wrapper around autojump
-if [[ -s ~/.autojump/etc/profile.d/autojump.sh ]]; then
-	source ~/.autojump/etc/profile.d/autojump.sh
-fi
+#if [[ -s ~/.autojump/etc/profile.d/autojump.sh ]]; then
+	#source ~/.autojump/etc/profile.d/autojump.sh
+#fi
+. /etc/profile.d/autojump.bash
 
 #================
 # Aesthetic stuff
@@ -355,3 +368,19 @@ fi
 
 # Import colorscheme from pywal asynchronously
 (cat ~/.cache/wal/sequences &)
+
+#========================
+# Last bit of pyenv stuff
+#========================
+
+#if command -v pyenv 1> /dev/null 2>&1; then
+if command -v pyenv &> /dev/null; then
+	eval "$(pyenv init -)"
+fi
+
+#======================
+# Add pipsi to the path
+#======================
+
+# added by pipsi (https://github.com/mitsuhiko/pipsi)
+export PATH="/home/fahmi/.local/bin:$PATH"

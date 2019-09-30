@@ -319,7 +319,8 @@ let g:ycm_global_ycm_extra_conf = "~/.ycm_extra_conf.py"
 
 " Have YCM use the system python rather than the virtual env
 " I'll have to figure out how to make YCM use the python interpreter in a virtual env
-let g:ycm_server_python_interpreter='/usr/bin/python'
+"let g:ycm_server_python_interpreter='/usr/bin/python'
+let g:ycm_server_python_interpreter='/home/fahmi/.pyenv/shims/python'
 
 " Automatically close the preview split after completion
 let g:ycm_autoclose_preview_window_after_completion = 1

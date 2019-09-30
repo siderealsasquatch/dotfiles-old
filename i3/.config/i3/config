@@ -31,8 +31,8 @@ floating_modifier $mod
 
 # start a terminal
 #bindsym $mod+Return exec i3-sensible-terminal
-#bindsym $mod+Return exec kitty # I'd really like to come back to kitty some day
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec kitty
+#bindsym $mod+Return exec termite
 
 # kill focused window
 #bindsym $mod+Shift+q kill
@@ -173,17 +173,11 @@ bindsym $mod+r mode "resize"
 #======
 # i3bar
 #======
-
-# Set colors for the bar
-#set $bg-color #090c19
-#set $fg-color #8fbdce
-#set $critical-color #2a6da9
-##set $text-color #f3f4f5
-
+#
 # Try getting these colors from Xresources
 set_from_resource $bg-color i3wm.color0 #f0f0f0
 set_from_resource $fg-color i3wm.color7 #f0f0f0
-set_from_resource $inactive-color i3wm.color3
+set_from_resource $inactive-color i3wm.color3 #f0f0f0
 set_from_resource $critical-color i3wm.color5 #f0f0f0
 #set $text-color #f3f4f5
 
@@ -192,7 +186,7 @@ bar {
 		position top
 		#status_command i3blocks -c /home/fahmi/.config/i3/i3blocks.conf
 		#status_command ~/src/bumblebee-status/bumblebee-status -m nic disk cpu memory nvidiagpu pasink date time -t wal
-		status_command ~/src/bumblebee-status/bumblebee-status -m nic disk cpu memory pasink date time -t wal
+		status_command ~/src/bumblebee-status/bumblebee-status -m disk cpu memory date time -t wal
 		
 		colors {
 				background $bg-color
@@ -206,7 +200,7 @@ bar {
 #================
 # Aesthetic stuff
 #================
-#
+
 # Set background image
 exec_always --no-startup-id feh --bg-scale ~/Pictures/xcom2-1544822073650-1246.jpg
 
@@ -233,15 +227,14 @@ client.background       $bg-color
 #--------
 
 # Set gaps
-gaps inner 10
+gaps inner 15
 gaps outer 0
 
 #===================
 # Autostart programs
 #===================
 
-# Start xfce4-power-manager
-#exec --no-startup-id xfce4-power-manager
+# Start mate-power-manager
 exec --no-startup-id mate-power-manager
 
 # Start nm-applet
@@ -253,24 +246,50 @@ exec --no-startup-id pa-applet
 # Start compton
 exec --no-startup-id compton -f
 
-# Start betterlockscreen
-exec --no-startup-id betterlockscreen -w dim
-
 # Start steam in silent mode
-exec --no-startup-id /usr/bin/steam-native -silent %U
+# *Temporary*: use steam-runtime instead (at least until the bug is fixed)
+#exec --no-startup-id /usr/bin/steam-native -silent %U
+exec --no-startup-id /usr/bin/steam-runtime -silent %U
 
 # Start alttab
+# Might actually get rid of this as this goes against the window switching paradigm of i3.
+# Plus, I hardly ever use it.
 exec --no-startup-id alttab -bg "#090c10" -frame "#8fbdce"
+
+# Start xss-lock with betterlockscreen
+exec --no-startup-id xss-lock -- betterlockscreen -l
 
 #==========
 # Shortcuts
 #==========
 
+# Applications
+#-------------
+
 # Open instance of Thunar
 bindsym $mod+t exec Thunar
 
+# Start steam-native
+bindsym $mod+g exec steam-native
+
+# Start steam-runtime
+bindsym $mod+Shift+g exec steam-runtime
+
+# Start discord
+bindsym $mod+c exec discord
+
+# Start franz
+# Might change this
+bindsym $mod+v exec franz
+
+# Start firefox
+bindsym $mod+b exec firefox
+
+# System/program actions
+#-----------------------
+
 # Lock screen
-bindsym $mod+Shift+z exec betterlockscreen -l dim
+bindsym $mod+Shift+z exec betterlockscreen -l
 
 # Shutdown the system
 bindsym $mod+Shift+x exec shutdown -h now
