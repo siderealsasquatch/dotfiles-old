@@ -182,10 +182,10 @@ set_from_resource $critical-color i3wm.color5 #f0f0f0
 #set $text-color #f3f4f5
 
 bar {
-		font pango:Inconsolata for Powerline 9
+		#font pango:Inconsolata for Powerline 9
+		font pango:Victor Mono 8
 		position top
 		#status_command i3blocks -c /home/fahmi/.config/i3/i3blocks.conf
-		#status_command ~/src/bumblebee-status/bumblebee-status -m nic disk cpu memory nvidiagpu pasink date time -t wal
 		status_command ~/src/bumblebee-status/bumblebee-status -m disk cpu memory date time -t wal
 		
 		colors {
@@ -227,7 +227,7 @@ client.background       $bg-color
 #--------
 
 # Set gaps
-gaps inner 15
+gaps inner 20
 gaps outer 0
 
 #===================
@@ -247,8 +247,6 @@ exec --no-startup-id pa-applet
 exec --no-startup-id compton -f
 
 # Start steam in silent mode
-# *Temporary*: use steam-runtime instead (at least until the bug is fixed)
-#exec --no-startup-id /usr/bin/steam-native -silent %U
 exec --no-startup-id /usr/bin/steam-runtime -silent %U
 
 # Start alttab
@@ -288,6 +286,9 @@ bindsym $mod+b exec firefox
 # System/program actions
 #-----------------------
 
+# System actions
+#***************
+
 # Lock screen
 bindsym $mod+Shift+z exec betterlockscreen -l
 
@@ -296,3 +297,24 @@ bindsym $mod+Shift+x exec shutdown -h now
 
 # Restart the system
 bindsym $mod+x exec shutdown -r now
+
+# Screenshots
+#************
+
+# Take screenshot of the entire screen
+bindsym Print exec "maim ~/Pictures/screenshots/screenshot_$(date +%F_%T).png"
+
+# Take screenshot of the entire screen and copy it to the clipboard
+bindsym $mod+m exec "maim | xclip -selection clipboard -t image/png"
+
+# Get screenshot of selected region
+bindsym $mod+Shift+m exec "maim -s ~/Pictures/screenshots/screenshot_$(date +%F_%T).png"
+
+# Get screenshot of selected region and copy it to the clipboard
+bindsym $mod+Control+m exec "maim -s | xclip -selection clipboard -t image/png"
+
+# Get screenshot of currently active window
+bindsym $mod+n exec "maim -i $(xdotool getactivewindow) ~/Pictures/screenshots/screenshot_$(date +%F_%T).png"
+
+# Get screenshot of currently active window and copy it to the clipboard
+bindsym $mod+Shift+n "maim -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png"

@@ -27,7 +27,9 @@ shopt -s extglob
 #########################
 
 # Set terminal prompt
-PS1='[\u@\h \W]\$ '
+#PS1='[\u@\h \W]\$ '
+PS1='[\u@\h] \W
+-> '
 
 # Set default editor
 export EDITOR="nvim"
