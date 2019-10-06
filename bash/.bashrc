@@ -26,9 +26,16 @@ shopt -s extglob
 # Environment Variables #
 #########################
 
+#-------------------------------------------------
+# Note: this section also includes sourced scripts
+#-------------------------------------------------
+
+# Source functions for showing branch info and other info from the current git repo
+. ~/.git-prompt.sh
+
 # Set terminal prompt
 #PS1='[\u@\h \W]\$ '
-PS1='[\u@\h] \W
+PS1='[\u@\h] \W $(__git_ps1 "(%s)")
 -> '
 
 # Set default editor

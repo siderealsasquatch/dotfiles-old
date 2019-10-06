@@ -186,7 +186,7 @@ bar {
 		font pango:Victor Mono 8
 		position top
 		#status_command i3blocks -c /home/fahmi/.config/i3/i3blocks.conf
-		status_command ~/src/bumblebee-status/bumblebee-status -m disk cpu memory date time -t wal
+		status_command ~/src/bumblebee-status/bumblebee-status -m disk cpu memory date time arch-update caffeine -t wal
 		
 		colors {
 				background $bg-color
