@@ -187,7 +187,7 @@ alias update-and-upgrade='sudo apt update && sudo apt upgrade'
 
 # Sourcing .bashrc file
 # ---------------------
-alias srcbash='source ~/.bashrc'
+alias srczsh='source ~/.zshrc'
 
 # Managing files and directories
 # ------------------------------
