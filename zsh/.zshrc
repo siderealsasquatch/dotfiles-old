@@ -150,8 +150,7 @@ bindkey 'jk' vi-cmd-mode
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-# Use ls -da *(D) instead. Read more about zsh glob qualifiers [that's what the (D) is].
-#alias l.='ls -d .+([a-zA-Z_])*?(-)'
+alias l.='ls -da *(D)' # Read more about zsh glob qualifiers [that's what the (D) is].
 alias ll='ls -l'
 
 #=============
@@ -269,11 +268,8 @@ vim() {
 # Python
 #-------
 
-# pyenv environment variables
-#export PYENV_ROOT="${HOME}/.pyenv"
-
-# Add PYENV_ROOT to PATH
-#export PATH="${PYENV_ROOT}/bin:${PATH}"
+# Note: All of the pyenv stuff is handled by the oh-my-zsh pyenv plugin so I no longer
+# need all of the lines for pyenv
 
 #====================
 # Programming aliases
@@ -369,24 +365,5 @@ alias cls='clear && ls'
 # Stuff for command line programs
 #================================
 
-# Autojump
-#---------
-
-# Enable j wrapper around autojump
-#if [[ -s ~/.autojump/etc/profile.d/autojump.sh ]]; then
-	#source ~/.autojump/etc/profile.d/autojump.sh
-#fi
-#. /usr/share/autojump/autojump.bash
-
-
-#========================
-# pyenv PATH manipulation
-#========================
-
-# Initialize pyenv
-#if command -v pyenv 1> /dev/null 2>&1; then
-	#eval "$(pyenv init -)"
-#fi
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+# Note: all of the autojump stuff is handled by the autojump plugin so I no longer need to
+# source the autojump script.
