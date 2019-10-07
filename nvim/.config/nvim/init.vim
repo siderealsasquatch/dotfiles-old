@@ -37,12 +37,17 @@ Plug 'danilo-augusto/vim-afterglow'
 Plug 'ayu-theme/ayu-vim'
 Plug 'trevordmiller/nova-vim'
 Plug 'nightsense/snow'
+Plug 'nightsense/stellarized'
 Plug 'challenger-deep-theme/vim', { 'as' : 'challenger-deep' }
 Plug 'mhartington/oceanic-next'
 Plug 'srcery-colors/srcery-vim'
 Plug 'jnurmine/Zenburn'
 Plug 'cocopon/iceberg.vim'
 Plug 'ayu-theme/ayu-vim'
+Plug 'larsbs/vimterial_dark'
+Plug 'tyrannicaltoucan/vim-quantum'
+Plug 'tyrannicaltoucan/vim-deep-space'
+Plug 'drewtempelmeyer/palenight.vim'
 
 " Fonts and other things
 Plug 'powerline/fonts', { 'do' : './install.sh' }
@@ -217,7 +222,7 @@ if (has("termguicolors"))
 endif
 
 " Set the background color
-"set background=dark
+set background=dark
 
 " Set the vim colorscheme
 "let g:gruvbox_contrast_dark = 'hard'
@@ -227,9 +232,14 @@ endif
 "let g:srcery_italic = 1
 "let g:srcery_bold = 1
 "let g:sierra_Sunset = 1
-"color gruvbox
-"color OceanicNext
-color iceberg
+"let g:quantum_black = 1
+"color ayu
+color stellarized
+"color palenight
+"color iceberg
+"color snow
+"let g:airline_theme = 'palenight'
+let g:airline_theme = 'stellarized_dark'
 "let g:airline_theme = 'oceanicnext'
 "let g:airline_theme = 'snow_dark'
 "let g:airline_theme = 'moonfly'

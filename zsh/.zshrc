@@ -1,46 +1,115 @@
-# If not running interactively, don't do anything
-case $- in
-	*i*) ;;
-	*) return;;
-esac
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
+# Path to your oh-my-zsh installation.
+export ZSH="/home/fahmi/.oh-my-zsh"
 
-# append to the history file, don't overwrite it
-shopt -s histappend
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
-# Enable extended globbing
-shopt -s extglob
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS=true
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git vi-mode pyenv pip autojump tmux ubuntu)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
 
 #########################
 # Environment Variables #
 #########################
-
-# Set terminal prompt
-#PS1='[\u@\h \W]\$ '
-PS1="[\u@\h] \W
--> "
-#PS1="\n┌─[\u@\h]─[\W]
-#└─▪ "
 
 # Set default editor
 export EDITOR="nvim"
 
 # Set default pager for ranger
 export PAGER="less"
-
-# Set 256 colors
-[[ -n "$TMUX" ]] && export TERM=xterm-256color
 
 # Have make use all of the systems cores
 export MAKEFLAGS="-j$(nproc)"
@@ -52,6 +121,23 @@ export PATH=~/bin:$PATH
 # Other Shell Stuff #
 #####################
 
+#=======
+# Prompt
+#=======
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+
+#============
+# Keybindings
+#============
+
+# Keybindings for vi-mode
+#------------------------
+
+# Use 'jk' to switch to Normal mode
+bindkey 'jk' vi-cmd-mode
+
 ###########
 # Aliases #
 ###########
@@ -60,11 +146,12 @@ export PATH=~/bin:$PATH
 # ls aliases
 #===========
 
-alias ls='ls --color=auto'
+#alias ls='ls --color=auto'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-alias l.='ls -d .+([a-zA-Z_])*?(-)'
+# Use ls -da *(D) instead. Read more about zsh glob qualifiers [that's what the (D) is].
+#alias l.='ls -d .+([a-zA-Z_])*?(-)'
 alias ll='ls -l'
 
 #=============
@@ -183,10 +270,10 @@ vim() {
 #-------
 
 # pyenv environment variables
-export PYENV_ROOT="${HOME}/.pyenv"
+#export PYENV_ROOT="${HOME}/.pyenv"
 
 # Add PYENV_ROOT to PATH
-export PATH="${PYENV_ROOT}/bin:${PATH}"
+#export PATH="${PYENV_ROOT}/bin:${PATH}"
 
 #====================
 # Programming aliases
@@ -209,27 +296,9 @@ gitrepo() {
 # Python
 #-------
 
-# Start ipython in a cleared terminal screen
-#alias ipython='clear && ipython --no-banner'
-# alias ipython='clear && rlwrap -a ipython --no-banner'
-
-# Update all packages in all virtualenvs
-#pipupdateall() {
-	#for env in $(lsvirtualenv | perl -ne 'print if /^\w/'); do
-		#workon ${env}
-		#pip freeze | awk -F== '{print $1}' | xargs pip install -U
-		#deactivate
-	#done
-#}
-
 #======================================
 # Aliases for databases/web development
 #======================================
-
-# Start MySQL with root account
-#------------------------------
-# Maria DB already uses readline
-#alias mysqlroot='mysql -u root -p'
 
 #==========
 # Net stuff
@@ -307,7 +376,7 @@ alias cls='clear && ls'
 #if [[ -s ~/.autojump/etc/profile.d/autojump.sh ]]; then
 	#source ~/.autojump/etc/profile.d/autojump.sh
 #fi
-. /usr/share/autojump/autojump.bash
+#. /usr/share/autojump/autojump.bash
 
 
 #========================
@@ -315,6 +384,9 @@ alias cls='clear && ls'
 #========================
 
 # Initialize pyenv
-if command -v pyenv 1> /dev/null 2>&1; then
-	eval "$(pyenv init -)"
-fi
+#if command -v pyenv 1> /dev/null 2>&1; then
+	#eval "$(pyenv init -)"
+#fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
