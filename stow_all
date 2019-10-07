@@ -77,10 +77,10 @@ TARGET_DIR="/home/fahmi"
 
 # The contents of each sub-directory in .dotfiles as well as the names of the
 # applications to stow
-CONTENTS=( .bashrc .config/nvim .config/i3 .config/dunst .config/mpd \
+CONTENTS=( .bashrc .zshrc .config/nvim .config/i3 .config/dunst .config/mpd \
 		.config/ncmpcpp .config/rofi .config/kitty .config/ranger \
 		.Rprofile .inputrc .tmux.conf .Xmodmap .ycm_extra_conf.py )
-APPS=( bash nvim i3 dunst mdp ncmpcpp rofi kitty ranger R readline tmux \
+APPS=( bash zsh nvim i3 dunst mdp ncmpcpp rofi kitty ranger R readline tmux \
 	xmodmap ycm_extra_conf )
 
 # Stow the contents
