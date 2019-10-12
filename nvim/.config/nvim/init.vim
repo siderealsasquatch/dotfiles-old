@@ -44,6 +44,8 @@ Plug 'jnurmine/Zenburn'
 Plug 'cocopon/iceberg.vim'
 Plug 'ayu-theme/ayu-vim'
 Plug 'josuegaleas/jay'
+Plug 'ajmwagar/vim-deus'
+Plug 'rakr/vim-two-firewatch'
 
 " Fonts and other things
 Plug 'powerline/fonts', { 'do' : './install.sh' }
@@ -222,15 +224,17 @@ set background=dark
 "let g:srcery_italic = 1
 "let g:srcery_bold = 1
 "let g:sierra_Sunset = 1
+"let g:two_firewatch_italics = 1
 "color gruvbox
 "color OceanicNext
-"color minimalist
-color stellarized
+"color two-firewatch
+color jay
 "let g:airline_theme = 'oceanicnext'
 "let g:airline_theme = 'snow_dark'
 "let g:airline_theme = 'moonfly'
 "let g:airline_theme = 'vorange'
-let g:airline_theme = 'stellarized_dark'
+"let g:airline_theme = 'stellarized_dark'
+"let g:airline_theme = 'twofirewatch'
 
 "---------------
 " Airline plugin

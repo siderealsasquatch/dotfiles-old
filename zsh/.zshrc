@@ -303,6 +303,11 @@ gitrepobare() {
 # Python
 #-------
 
+# Update all packages in current virtualenv
+pipupdateall() {
+	pip freeze | awk -F== '{print $1}' | xargs pip install -U
+}
+
 #======================================
 # Aliases for databases/web development
 #======================================
