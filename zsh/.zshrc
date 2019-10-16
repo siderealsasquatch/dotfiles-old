@@ -69,7 +69,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 #plugins=(git vi-mode pyenv pip autojump archlinux)
-plugins=(git vi-mode pip autojump archlinux)
+plugins=(git vi-mode pip autojump archlinux tmux)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -390,11 +390,11 @@ alias cls='clear && ls'
 #================
 
 # Import colorscheme from pywal asynchronously
-(cat ~/.cache/wal/sequences &)
+#(cat ~/.cache/wal/sequences &)
 
 #======================
 # Add pipsi to the path
 #======================
 
 # added by pipsi (https://github.com/mitsuhiko/pipsi)
-export PATH="/home/fahmi/.local/bin:$PATH"
+#export PATH="/home/fahmi/.local/bin:$PATH"
