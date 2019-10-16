@@ -40,6 +40,7 @@ Plug 'challenger-deep-theme/vim', { 'as' : 'challenger-deep' }
 Plug 'mhartington/oceanic-next'
 Plug 'srcery-colors/srcery-vim'
 Plug 'jnurmine/Zenburn'
+Plug 'ajmwagar/vim-deus'
 
 " Fonts and other things
 Plug 'powerline/fonts', { 'do' : './install.sh' }
@@ -208,19 +209,19 @@ if (has("termguicolors"))
 endif
 
 " Set the background color
-"set background=dark
+set background=dark
 
 " Set the vim colorscheme
 "let g:gruvbox_contrast_dark = 'hard'
 "let g:gruvbox_italic = 1
-let g:oceanic_next_terminal_bold = 1
-let g:oceanic_next_terminal_italic = 1
+"let g:oceanic_next_terminal_bold = 1
+"let g:oceanic_next_terminal_italic = 1
 "let g:srcery_italic = 1
 "let g:srcery_bold = 1
 "let g:sierra_Sunset = 1
 "color gruvbox
-color OceanicNext
-let g:airline_theme = 'oceanicnext'
+color deus
+"let g:airline_theme = 'oceanicnext'
 "let g:airline_theme = 'snow_dark'
 "let g:airline_theme = 'moonfly'
 "let g:airline_theme = 'vorange'

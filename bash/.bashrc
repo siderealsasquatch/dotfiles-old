@@ -26,8 +26,18 @@ shopt -s extglob
 # Environment Variables #
 #########################
 
+#----------------------------------------------------------------------------------------
+# Note: this section also includes functions and environment variables sourced from other
+# scripts
+#----------------------------------------------------------------------------------------
+
+# Source functions for providing info on the current repo
+. ~/.git-prompt.sh
+
 # Set terminal prompt
-PS1='[\u@\h \W]\$ '
+#PS1='[\u@\h \W]\$ '
+PS1='[\u@\h] \W $(__git_ps1 "(%s)")
+-> '
 
 # Set default editor
 export EDITOR="nvim"
@@ -40,6 +50,9 @@ export PAGER="less"
 
 # Add ~/bin to the system path
 export PATH=~/bin:$PATH
+
+# Have gcc/g++ use all cores when compiling
+export MAKEFLAGS="-j$(nproc)"
 
 #####################
 # Other Shell Stuff #
@@ -154,9 +167,10 @@ unbak() {
 #===============
 
 # Set nvim to vim
-vim() {
-	nvim "$@"
-}
+#vim() {
+	#nvim "$@"
+#}
+alias vim='nvim'
 
 #==================
 # Programming Stuff
@@ -221,7 +235,8 @@ alias ipython='clear && ipython --no-banner'
 
 # Update all packages in all virtualenvs
 pipupdateall() {
-	for env in $(lsvirtualenv | perl -ne 'print if /^\w/'); do
+	#for env in $(lsvirtualenv | perl -ne 'print if /^\w/'); do
+	for env in $(lsvirtualenv -b); do
 		workon ${env}
 		pip freeze | awk -F== '{print $1}' | xargs pip install -U
 		deactivate
@@ -238,7 +253,7 @@ alias R='clear && R --quiet'
 #-----
 
 # Start the eclim sever
-alias eclimd='~/.eclipse/org.eclipse.platform_4.6.2_155965261_linux_gtk_x86_64/eclimd'
+#alias eclimd='~/.eclipse/org.eclipse.platform_4.6.2_155965261_linux_gtk_x86_64/eclimd'
 
 #======================================
 # Aliases for databases/web development
@@ -247,7 +262,7 @@ alias eclimd='~/.eclipse/org.eclipse.platform_4.6.2_155965261_linux_gtk_x86_64/e
 # Start MySQL with root account
 #------------------------------
 # Maria DB already uses readline
-alias mysqlroot='mysql -u root -p'
+#alias mysqlroot='mysql -u root -p'
 
 #==========
 # Net stuff
@@ -263,8 +278,14 @@ alias testnet='ping -c 3 www.google.com'
 # Resetting file permissions in project repos
 #--------------------------------------------
 
-expreset() {
+# Term 2 - project 2
+ureset-proj2() {
 	find . -type f -! -name "*.R" -perm 777 -exec chmod 644 {} +
+}
+
+# Term 2 - project 3
+ureset-proj3() {
+	find . -type f -perm 777 -exec chmod 644 {} +
 }
 
 #==================================
