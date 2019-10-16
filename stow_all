@@ -3,15 +3,19 @@
 
 # The contents of each sub-directory in .dotfiles as well as the names of the
 # applications to stow
-CONTENTS=( 	.bashrc .zshrc .config/kitty/kitty.conf .config/nvim/init.vim \
-			.Rprofile .inputrc .tmux.conf .Xmodmap .ycm_extra_conf.py )
-APPS=( bash zsh kitty nvim R readline tmux xmodmap ycm_extra_conf )
+
+# Modify this for ranger.
+CONTENTS=( 	.bashrc .zshrc .config/kitty .config/nvim .Rprofile \
+			.config/ranger .inputrc .tmux.conf .Xmodmap .ycm_extra_conf.py )
+APPS=( bash zsh kitty nvim R ranger readline tmux xmodmap ycm_extra_conf )
 
 # Stow the contents
 END=$(( ${#APPS[@]} - 1 ))
 for i in $(seq 0 $END); do
 	if [[ -f ~/${CONTENTS[$i]} ]]; then
 		rm ~/${CONTENTS[$i]}
+	elif [[ -d ~/${CONTETS[$i]} ]]; then
+		rm -r ~/${CONTENTS[$i]}
 	fi
 	stow ${APPS[$i]}
 done
