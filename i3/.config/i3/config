@@ -178,16 +178,16 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 5 px or 5 ppt
+        bindsym k resize grow height 5 px or 5 ppt
+        bindsym j resize shrink height 5 px or 5 ppt
+        bindsym l resize grow width 5 px or 5 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 5 px or 5 ppt
+        bindsym Down resize grow height 5 px or 5 ppt
+        bindsym Up resize shrink height 5 px or 5 ppt
+        bindsym Right resize grow width 5 px or 5 ppt
 
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
@@ -203,7 +203,7 @@ bindsym $mod+r mode "resize"
 #======
 # i3bar
 #======
-#
+
 # Try getting these colors from Xresources
 set_from_resource $bg-color i3wm.color0 #f0f0f0
 set_from_resource $fg-color i3wm.color7 #f0f0f0
@@ -217,7 +217,8 @@ bar {
 		position top
 		#status_command i3blocks -c /home/fahmi/.config/i3/i3blocks.conf
 		status_command ~/src/bumblebee-status/bumblebee-status -m disk cpu memory date time arch-update caffeine -t wal
-		
+		#status_command ~/src/bumblebee-status/bumblebee-status -m disk cpu memory date time arch-update caffeine -t wal-powerline
+
 		colors {
 				background $bg-color
 
@@ -232,10 +233,13 @@ bar {
 #================
 
 # Set background image
-exec_always --no-startup-id feh --bg-scale ~/Pictures/xcom2-1544822073650-1246.jpg
+exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers/vector/lion_colorful_triangle_132322_1920x1080.jpg
 
 # Have wal use the last colorscheme
 exec --no-startup-id wal -R
+
+# Enable compton with transparency
+exec --no-startup-id compton --backend glx --blur-method kawase --blur-strength 10 --config ~/.config/compton/compton.conf
 
 # Window stuff
 #-------------
@@ -264,17 +268,17 @@ gaps outer 0
 # Autostart programs
 #===================
 
-# Start mate-power-manager
-exec --no-startup-id mate-power-manager
+##Start mate-power-manager
+#exec --no-startup-id mate-power-manager
+
+# Try going back to xfce4-power-manager
+exec --no-startup-id xfce4-power-manager
 
 # Start nm-applet
 exec --no-startup-id nm-applet
 
 # Start pa-applet
 exec --no-startup-id pa-applet
-
-# Start compton
-exec --no-startup-id compton -f
 
 # Start steam in silent mode
 exec --no-startup-id /usr/bin/steam-runtime -silent %U

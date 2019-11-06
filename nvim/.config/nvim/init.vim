@@ -21,6 +21,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'shmup/vim-sql-syntax'
 
 " Vim colors
+Plug 'dylanaraps/wal.vim'
 Plug 'reedes/vim-colors-pencil'
 Plug 'morhetz/gruvbox'
 Plug 'rakr/vim-one'
@@ -228,7 +229,8 @@ set background=dark
 "color gruvbox
 "color OceanicNext
 "color two-firewatch
-color jay
+color iceberg
+"color wal
 "let g:airline_theme = 'oceanicnext'
 "let g:airline_theme = 'snow_dark'
 "let g:airline_theme = 'moonfly'

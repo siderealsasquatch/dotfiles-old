@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/fahmi/.oh-my-zsh"
@@ -124,6 +124,13 @@ export PATH=~/bin:$PATH
 # Other Shell Stuff #
 #####################
 
+#============
+# zsh options
+#============
+
+# Enable extended globbing
+setopt extended_glob
+
 #=======
 # Prompt
 #=======
@@ -153,7 +160,7 @@ bindkey 'jk' vi-cmd-mode
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-alias l.='ls -da *(D)' # Read more about zsh glob qualifiers [that's what the (D) is].
+alias l.='ls *(D.,@)' # Read more about zsh glob qualifiers (i.e., everything in parentheses)
 alias ll='ls -l'
 
 #=============
@@ -164,9 +171,10 @@ alias ll='ls -l'
 alias grep='grep --color=auto'
 
 # grep with Perl regex syntax
-greP() {
-	grep -P "$@"
-}
+#greP() {
+	#grep -P "$@"
+#}
+alias greP='grep -P'
 
 #=====================
 # Administrative stuff
@@ -185,7 +193,7 @@ alias yay='yay --aur'
 # General purpose stuff
 #======================
 
-# Sourcing .bashrc file
+# Sourcing .zshrc file
 # ---------------------
 alias srczsh='source ~/.zshrc'
 
@@ -257,9 +265,10 @@ unbak() {
 #===============
 
 # Set nvim to vim
-vim() {
-	nvim "$@"
-}
+#vim() {
+	#nvim "$@"
+#}
+alias vim='nvim'
 
 #==================
 # Programming Stuff
@@ -390,10 +399,3 @@ alias cls='clear && ls'
 
 # Import colorscheme from pywal asynchronously
 (cat ~/.cache/wal/sequences &)
-
-#======================
-# Add pipsi to the path
-#======================
-
-# added by pipsi (https://github.com/mitsuhiko/pipsi)
-export PATH="/home/fahmi/.local/bin:$PATH"
