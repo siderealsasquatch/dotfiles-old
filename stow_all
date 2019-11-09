@@ -25,16 +25,16 @@ config_nvim() {
 	fi
 }
 
-# i3 setup
-config_i3() {
-	i3_dir_path="$1"
+# polybar setup
+config_polybar() {
+	polybar_dir_path="$1"
 
-	i3_subdir="${i3_dir_path}/block_scripts"
-	if [[ -d "${i3_subdir}" ]]; then
-		rm -f "${i3_subdir}"/*
+	polybar_subdir="${polybar_dir_path}/modules"
+	if [[ -d "${polybar_subdir}" ]]; then
+		rm -f "${polybar_subdir}"/*
 	fi
-	if [[ -n "$(ls -A ${i3_dir_path})" ]]; then
-		find "${i3_dir_path}" -type f -delete
+	if [[ -n "$(ls -A ${polybar_dir_path})" ]]; then
+		find "${polybar_dir_path}" -type f -delete
 	fi
 }
 
@@ -45,8 +45,8 @@ config_del() {
 
 	if [[ "${full_path_basename}" == nvim ]]; then
 		config_nvim "${full_path}"
-	elif [[ "${full_path_basename}" == i3 ]]; then
-		config_i3 "${full_path}"
+	elif [[ "${full_path_basename}" == polybar ]]; then
+		config_polybar "${full_path}"
 	elif [[ "${full_path_basename}" == ncmpcpp ]]; then
 		rm "${full_path}"/config
 	elif [[ "${full_path_basename}" == mpd ]]; then
@@ -63,8 +63,8 @@ create_dir_struct() {
 
 	if [[ "${full_path_basename}" == nvim ]]; then
 		mkdir -p "${full_path}"/{autoload,plugged}
-	elif [[ "${full_path_basename}" == i3 ]]; then
-		mkdir -p "${full_path}"/block_scripts
+	elif [[ "${full_path_basename}" == polybar ]]; then
+		mkdir -p "${full_path}"/modules
 	else
 		mkdir -p "${full_path}"
 	fi
