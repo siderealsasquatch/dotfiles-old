@@ -269,7 +269,10 @@ gaps outer 0
 #===================
 
 # Start polybar
-exec_always --no-startup-id /home/fahmi/.config/polybar/launch.sh
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+
+# Start caffeine
+exec --no-startup-id caffeine
 
 # Start xfce4-power-manager
 exec --no-startup-id xfce4-power-manager
