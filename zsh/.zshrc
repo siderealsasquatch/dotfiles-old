@@ -68,7 +68,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode pyenv pip autojump archlinux)
+plugins=(git vi-mode pyenv pip autojump archlinux tmux)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -145,8 +145,9 @@ setopt extended_glob
 # Keybindings for vi-mode
 #------------------------
 
+# Disabling this for now since I've set Caps Lock to be Escape when tapped
 # Use 'jk' to switch to Normal mode
-bindkey 'jk' vi-cmd-mode
+#bindkey 'jk' vi-cmd-mode
 
 ###########
 # Aliases #

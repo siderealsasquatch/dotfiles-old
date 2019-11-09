@@ -211,22 +211,22 @@ set_from_resource $inactive-color i3wm.color3 #f0f0f0
 set_from_resource $critical-color i3wm.color5 #f0f0f0
 #set $text-color #f3f4f5
 
-bar {
+#bar {
 		#font pango:Inconsolata for Powerline 9
-		font pango:Victor Mono 8
-		position top
+		#font pango:Victor Mono 8
+		#position top
 		#status_command i3blocks -c /home/fahmi/.config/i3/i3blocks.conf
-		status_command ~/src/bumblebee-status/bumblebee-status -m disk cpu memory date time arch-update caffeine -t wal
+		#status_command ~/src/bumblebee-status/bumblebee-status -m disk cpu memory date time arch-update caffeine -t wal
 		#status_command ~/src/bumblebee-status/bumblebee-status -m disk cpu memory date time arch-update caffeine -t wal-powerline
 
-		colors {
-				background $bg-color
+		#colors {
+				#background $bg-color
 
-				focused_workspace $fg-color $fg-color $bg-color
-				inactive_workspace $bg-color $bg-color $fg-color
-				urgent_workspace $critical-color $critical-color $fg-color
-		}
-}
+				#focused_workspace $fg-color $fg-color $bg-color
+				#inactive_workspace $bg-color $bg-color $fg-color
+				#urgent_workspace $critical-color $critical-color $fg-color
+		#}
+#}
 
 #================
 # Aesthetic stuff
@@ -268,10 +268,10 @@ gaps outer 0
 # Autostart programs
 #===================
 
-##Start mate-power-manager
-#exec --no-startup-id mate-power-manager
+# Start polybar
+exec_always --no-startup-id /home/fahmi/.config/polybar/launch.sh
 
-# Try going back to xfce4-power-manager
+# Start xfce4-power-manager
 exec --no-startup-id xfce4-power-manager
 
 # Start nm-applet
@@ -290,6 +290,9 @@ exec --no-startup-id alttab -bg "#090c10" -frame "#8fbdce"
 
 # Start xss-lock with betterlockscreen
 exec --no-startup-id xss-lock -- betterlockscreen -l
+
+# Apply the Caps Lock as Escape upon release change using xcape
+exec --no-startup-id xcape -e 'Control_L=Escape'
 
 #==========
 # Shortcuts

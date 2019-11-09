@@ -60,8 +60,9 @@ call plug#end()
 " Remap leader key
 nmap <space> <leader>
 
+" Disabling this for now as I've set Caps Lock to Escape when tapped.
 " Remap Escape key
-imap jk <Esc>
+"imap jk <Esc>
 
 " Disable mouse support
 set mouse=""
