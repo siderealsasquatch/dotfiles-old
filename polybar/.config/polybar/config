@@ -23,9 +23,6 @@ include-file = ~/.config/polybar/xrdb-colors
 monitor = ${env:MONITOR:HDMI-1}
 width = 100%
 height = 22
-;offset-x = 1%
-;offset-y = 1%
-;radius = 6.0
 fixed-center = false
 
 background = ${colors.background}
@@ -34,22 +31,17 @@ foreground = ${colors.foreground}
 line-size = 3
 line-color = #f00
 
-;padding-left = 0
-;padding-right = 2
 padding = 0
 
-;module-margin-left = 1
-;module-margin-right = 2
 module-margin-left = 0
 module-margin-right = 0
 
 font-0 = "Victor Mono:pixelsize=10;1"
-font-1 = siji:size=14;2
+font-1 = siji:pixelsize=14;2
 font-2 = "Symbols Nerd Font:pixelsize=10;1"
-font-3 = "Symbols Nerd Font:pixelsize=47;2"
+font-3 = "Symbols Nerd Font:pixelsize=45;2"
 font-4 = "Font Awesome 5:pixelsize=10;2"
 
-;modules-left = i3 xwindow
 modules-left = left1 i3 xwindow left2
 modules-center = mpd
 modules-right = right2-back filesystem right3 memory right1 cpu right2 date right3 time update-arch
@@ -57,11 +49,6 @@ modules-right = right2-back filesystem right3 memory right1 cpu right2 date righ
 tray-position = right
 tray-padding = 2
 tray-background = ${colors.color3}
-
-;wm-restack = bspwm
-;wm-restack = i3
-
-;override-redirect = true
 
 scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
@@ -122,7 +109,7 @@ content = ""
 
 [module/left2]
 type = custom/text
-content-foreground = ${colors.color6}
+content-foreground = ${colors.foreground}
 content-background = ${colors.background}
 content = "%{T4}%{T-}"
 
@@ -139,11 +126,9 @@ wrapping-scroll = false
 ; Only show workspaces on the same output as the bar
 ;pin-workspaces = true
 
-label-mode-padding = 2
-;label-mode-foreground = #000
-;label-mode-background = ${colors.primary}
-label-mode-foreground = ${colors.primary}
-label-mode-background = ${colors.secondary}
+label-mode-padding = 1
+label-mode-foreground = ${colors.background}
+label-mode-background = ${colors.color5}
 
 ; focused = Active workspace on focused monitor
 label-focused = %index%
@@ -173,7 +158,7 @@ label-urgent-padding = 1
 type = internal/xwindow
 label = %title:0:30:...%
 label-foreground = ${colors.background}
-label-background = ${colors.color6}
+label-background = ${colors.foreground}
 label-padding = 1
 
 [module/filesystem]
@@ -185,7 +170,8 @@ mount-0 = /
 label-mounted = " %percentage_used%%"
 label-mounted-foreground = ${colors.background}
 label-mounted-background = ${colors.color2}
-label-mounted-padding = 1
+;label-mounted-padding = 1
+label-mounted-padding-left = 1
 ;label-unmounted = %mountpoint% not mounted
 ;label-unmounted-foreground = ${colors.foreground-alt}
 
@@ -211,9 +197,12 @@ interval = 2
 
 format-foreground = ${colors.background}
 format-background = ${colors.color1}
-format-padding = 1
+;format-padding = 1
+;format-padding-left = 0
+;format-padding-right = 1
 
 label = " %percentage:2%%"
+label-padding-left = 1
 
 [module/memory]
 type = internal/memory
@@ -221,9 +210,13 @@ interval = 2
 
 format-foreground = ${colors.background}
 format-background = ${colors.color3}
-format-padding = 1
+;format-padding = 1
+;format-padding-left = 0
+;format-padding-right = 1
 
-label = " %percentage_used%%"
+;label = " %percentage_used%%"
+label = " %percentage_used%%"
+label-padding-left = 1
 
 [module/date]
 type = internal/date
@@ -234,34 +227,43 @@ date-alt = " %Y-%m-%d"
 
 format-foreground = ${colors.background}
 format-background = ${colors.color2}
-format-padding = 1
+;format-padding = 1
+;format-padding-left = 0
+;format-padding-right = 1
 
 label = %date%
+label-padding-left = 1
 
 [module/time]
 type = internal/date
 interval = 5
 
-time = "%l:%M:%S %p"
+time = " %l:%M:%S %p"
 time-alt = %H:%M:%S
 
 format-foreground = ${colors.background}
 format-background = ${colors.color3}
-format-padding = 1
+;format-padding = 1
+;format-padding-left = 0
+;format-padding-right = 1
 
 label = %time%
+label-padding = 1
+;label-padding-left = 1
 
 [module/update-arch]
 type = custom/script
 exec = ~/.config/polybar/modules/updates-arch-combined.sh
-interval = 600
+interval = 5
 
 format-foreground = ${colors.background}
 format-background = ${colors.color5}
-format-padding = 1
+;format-padding = 1
+;format-padding-left = 0
+;format-padding-right = 1
 
-;label = " %output%"
 label = " %output%"
+label-padding = 1
 
 [settings]
 screenchange-reload = true

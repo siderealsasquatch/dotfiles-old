@@ -230,7 +230,7 @@ set background=dark
 "color gruvbox
 "color OceanicNext
 "color two-firewatch
-color iceberg
+color challenger_deep
 "color wal
 "let g:airline_theme = 'oceanicnext'
 "let g:airline_theme = 'snow_dark'
