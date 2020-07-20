@@ -259,7 +259,7 @@ gaps outer 0
 # Steam
 #------
 
-for_window          [class="Steam*" title="^Friends$"]                                              floating enable
+for_window          [class="Steam*" title="^Friends*"]                                              floating enable
 for_window          [class="Steam*" title="Steam - News"]                                           floating enable
 for_window          [class="Steam*" title=".* - Chat"]                                              floating enable
 for_window          [class="Steam*" title="^Settings$"]                                             floating enable
@@ -269,13 +269,13 @@ for_window          [class="Steam*" title="^Steam - Self Updater$"]             
 for_window          [class="Steam*" title="^Screenshot Uploader$"]                                  floating enable
 for_window          [class="Steam*" title="^Steam Guard - Computer Authorization Required$"]        floating enable
 for_window          [class="Steam*" title="^Servers$"]                                              floating enable
-for_window          [class="Steam*" title="^data:.*"]                                              floating enable
+for_window          [class="Steam*" title="^data:.*"]                                             	floating enable
 for_window          [title="Steam Keyboard$"]                                                       floating enable
 
-# Octave
-#-------
+# Generic plot
+#-------------
 
-for_window	[class="Octave*" title="^Figure*"]	floating enable
+for_window [title = "^Figure*"] floating enable
 
 # R
 #--

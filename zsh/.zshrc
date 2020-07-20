@@ -68,7 +68,8 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode pyenv pip autojump archlinux tmux)
+#plugins=(git vi-mode pyenv pip autojump archlinux tmux)
+plugins=(git vi-mode pyenv autojump archlinux tmux)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -161,7 +162,7 @@ setopt extended_glob
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-alias l.='ls *(D.,@)' # Read more about zsh glob qualifiers (i.e., everything in parentheses)
+alias l.='ls -d .*(/,.,@)' # Read more about zsh glob qualifiers (i.e., everything in parentheses)
 alias ll='ls -l'
 
 #=============
@@ -281,6 +282,14 @@ alias vim='nvim'
 # Note: All of the pyenv stuff is handled by the oh-my-zsh pyenv plugin so I no longer
 # need all of the lines for pyenv
 
+# Alias for pyenv install that ensures that the PYTHON_CONFIGURE_OPTS env variable is set
+# to "--enable-shared"
+alias pyenv_install='env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install'
+
+# Alias for pyenv virtualenv that ensures that the PYTHON_CONFIGURE_OPTS env variable is
+# set to "--enable-shared"
+alias pyenv_venv='env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv virtualenv'
+
 #====================
 # Programming aliases
 #====================
@@ -314,7 +323,7 @@ gitrepobare() {
 #-------
 
 # Update all packages in current virtualenv
-pipupdateall() {
+pipud() {
 	pip freeze | awk -F== '{print $1}' | xargs pip install -U
 }
 
