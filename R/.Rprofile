@@ -1,5 +1,6 @@
 # Include local R library in library path
-.libPaths(c('~/.Rlibs', .libPaths()))
+# This is now handled in the .Renviron file
+#.libPaths(c('~/.Rlibs', .libPaths()))
 
 #Load packages
 #library(pacman)
@@ -7,7 +8,8 @@
 #library(utils)
 
 # Set install.packages to install to ~/.Rilbs
-options(lib='~/.Rlibs')
+# This is now handled in the .Renviron file
+#options(lib='~/.Rlibs')
 
 # Don't automatically convert strings to factors
 options(stringsAsFactors = F)

@@ -11,8 +11,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter'
-"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
-Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --clang-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
+"Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --clang-completer' }
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'godlygeek/tabular'
@@ -336,7 +336,8 @@ let g:ycm_global_ycm_extra_conf = "~/.ycm_extra_conf.py"
 
 " Have YCM use the system python rather than the virtual env
 " I'll have to figure out how to make YCM use the python interpreter in a virtual env
-let g:ycm_server_python_interpreter='/usr/bin/python3'
+"let g:ycm_server_python_interpreter='/usr/bin/python3'
+let g:ycm_server_python_interpreter='/home/fahmi/.pyenv/shims/python'
 
 " Automatically close the preview split after completion
 let g:ycm_autoclose_preview_window_after_completion = 1

@@ -1,3 +1,7 @@
+############################
+# zsh options and settings #
+############################
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -101,6 +105,13 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+#==================
+# zsh shell options
+#==================
+
+# Enable extended globbing
+setopt EXTENDED_GLOB
+
 #########################
 # Environment Variables #
 #########################
@@ -115,7 +126,7 @@ export PAGER="less"
 export MAKEFLAGS="-j$(nproc)"
 
 # Add ~/bin to the system path
-export PATH=~/bin:$PATH
+export PATH=~/bin:~/.local/bin:$PATH
 
 #####################
 # Other Shell Stuff #
@@ -135,8 +146,9 @@ export PATH=~/bin:$PATH
 # Keybindings for vi-mode
 #------------------------
 
+# No longer need to use this as the escape key has been bound to caps lock
 # Use 'jk' to switch to Normal mode
-bindkey 'jk' vi-cmd-mode
+#bindkey 'jk' vi-cmd-mode
 
 ###########
 # Aliases #
@@ -150,7 +162,7 @@ bindkey 'jk' vi-cmd-mode
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-alias l.='ls -da *(D)' # Read more about zsh glob qualifiers [that's what the (D) is].
+alias l.='ls -d .*(.,@,/)' # Read more about zsh glob qualifiers [that's what the (D) is].
 alias ll='ls -l'
 
 #=============
@@ -233,7 +245,7 @@ undot() {
 # Convert files into backup files
 # (Add the .bak extension to the files)
 bak() {
-	perl-rename 's/$/\.bak/' "$@"
+	rename 's/$/\.bak/' "$@"
 }
 
 # Make backup copy of file
@@ -247,10 +259,6 @@ cpbak() {
 unbak() {
 	rename 's/\.bak$//' "$@"
 }
-
-# Create an alias to the perl-rename command
-# For some reason this doesn't work. I'll have to figure out why.
-#alias rename='perl-rename'
 
 #===============
 # Neovim aliases
@@ -291,6 +299,15 @@ gitrepo() {
 
 # Python
 #-------
+
+# Update all pip packages
+alias pipud="pip freeze | awk -F== '{print $1}' | xargs pip install -U"
+
+# Install python version with pyenv with CONFIGURE_OPTS set to '--enable-shared'
+alias pyenv_install="env CONFIGURE_OPTS=--enable_shared pyenv install"
+
+# Create pyenv virtualenv with CONFIGURE_OPTS set to '--enable-shared'
+alias pyenv_venv="env CONFIGURE_OPTS=--enable_shared pyenv virtualenv"
 
 #======================================
 # Aliases for databases/web development
@@ -361,9 +378,39 @@ cdlsd() {
 # Clear screen and list directory contents
 alias cls='clear && ls'
 
+#==============#
+# Work aliases #
+#==============#
+
+# OMP ini file symlinks
+#----------------------
+
+# Create symlink to OMP.ini file for different estate. Will over-write existing symlink.
+# Assumes that there is an .omp_ini directory in the current directory.
+relink_omp_ini() {
+	target=$(find .omp_ini -type f -iname "*$1*")
+	ln -sf ${target} OMP.ini
+}
+
+# OMP license files
+#------------------
+
+# Will probably have to write this function in powershell as Windows doesn't recognize
+# symlinks made in WSL with absolute paths.
+# Create symlinks to OMP license file and xml file in the current directory. Will
+# over-write existing symlinks.
+# May have to think of a more robust solution in the future.
+#relink_omp_license() {
+	#license_dir="/mnt/h/omp-accdb_files"
+	#ln -sf ${license_dir}/*.{xml,asl} .
+#}
+
 #================================
 # Stuff for command line programs
 #================================
 
 # Note: all of the autojump stuff is handled by the autojump plugin so I no longer need to
 # source the autojump script.
+
+# Created by `userpath` on 2020-04-21 02:30:15
+#export PATH="$PATH:/home/fahmi/.local/bin"

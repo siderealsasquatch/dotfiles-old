@@ -1,0 +1,5 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/home/fahmi/.ssh'
+let g:netrw_dirhist_2='/mnt/e/online_courses/coursera/JHU_data_science/course08-practical_machine_learning/assignment/prediction-assignment/.git'
+let g:netrw_dirhist_3='/mnt/h/omp-dev/machine_learning/BE/omp_ml-python/.git'
