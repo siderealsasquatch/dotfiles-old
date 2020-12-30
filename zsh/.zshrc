@@ -8,7 +8,8 @@ export ZSH="/home/fahmi/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
+#ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="spaceship"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -69,7 +70,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 #plugins=(git vi-mode pyenv pip autojump archlinux tmux)
-plugins=(git vi-mode pyenv autojump archlinux tmux)
+plugins=(git vi-mode pyenv z archlinux tmux)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -402,6 +403,14 @@ alias cls='clear && ls'
 
 # Note: all of the autojump stuff is handled by the autojump plugin so I no longer need to
 # source the autojump script.
+#
+# Will stop using autojump until the AUR package maintainer fixes it and use z instead.
+
+# z
+# -
+
+# Prevent z from resolving symlinks
+$_Z_NO_RESOLVE_SYMLINKS=true
 
 #================
 # Aesthetic stuff
