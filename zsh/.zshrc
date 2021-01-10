@@ -11,85 +11,16 @@ export ZSH="/home/fahmi/.oh-my-zsh"
 #ZSH_THEME="powerlevel10k/powerlevel10k"
 ZSH_THEME="spaceship"
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 #plugins=(git vi-mode pyenv pip autojump archlinux tmux)
-plugins=(git vi-mode pyenv z archlinux tmux)
+#plugins=(git vi-mode pyenv z archlinux tmux zsh-autosuggestions zsh-syntax-highlighting fzf)
+plugins=(git vi-mode pyenv z archlinux tmux zsh-autosuggestions zsh-syntax-highlighting fzf fzf-tab)
 
 source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -118,6 +49,35 @@ export PATH="/usr/lib/ccache/bin:$PATH"
 
 # Make it so that steam closes to the tray
 export STEAM_FRAME_FORCE_CLOSE=1
+
+# pyenv
+# ----
+
+# Set pyenv home and add to path
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+
+# Disable venv prompt as the zsh prompts I use handle it.
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
+# fzf
+# ---
+
+# Set rg as the default source for fzf
+export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow -g '!.{git,__py*}/*' 2> /dev/null"
+
+# Set rg as the default source for the main fzf keybinds
+# ctrl+t
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# ctrl+r
+export FZF_ALT_C_COMMAND='fd -t d -HL -E "{.git,__py*}"'
+
+# Set default options for the fzf app
+export FZF_DEFAULT_OPTS="--reverse --border"
+
+# Final path entry
+# ----------------
 
 # Add ~/bin to the system path
 export PATH=~/bin:$PATH
@@ -151,6 +111,12 @@ setopt extended_glob
 # Use 'jk' to switch to Normal mode
 #bindkey 'jk' vi-cmd-mode
 
+# Keybindings for zsh-autosuggest
+# -------------------------------
+
+# Ctrl+space to accept current suggestion
+#bindkey '^p' autosuggest-accept
+
 ###########
 # Aliases #
 ###########
@@ -165,6 +131,13 @@ alias la='ls -A'
 alias l='ls -CF'
 alias l.='ls -d .*(/,.,@)' # Read more about zsh glob qualifiers (i.e., everything in parentheses)
 alias ll='ls -l'
+
+#============
+# cat aliases
+#============
+
+# Replace cat with bat and set it to the terminal theme
+alias cat='bat --theme ansi-dark'
 
 #=============
 # grep aliases
@@ -273,27 +246,9 @@ unbak() {
 #}
 alias vim='nvim'
 
-#==================
-# Programming Stuff
-#==================
-
-# Python
-#-------
-
-# Note: All of the pyenv stuff is handled by the oh-my-zsh pyenv plugin so I no longer
-# need all of the lines for pyenv
-
-# Alias for pyenv install that ensures that the PYTHON_CONFIGURE_OPTS env variable is set
-# to "--enable-shared"
-alias pyenv_install='env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install'
-
-# Alias for pyenv virtualenv that ensures that the PYTHON_CONFIGURE_OPTS env variable is
-# set to "--enable-shared"
-alias pyenv_venv='env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv virtualenv'
-
-#====================
-# Programming aliases
-#====================
+#======================
+# Programming - General
+#======================
 
 # git
 #----
@@ -327,6 +282,31 @@ gitrepobare() {
 pipud() {
 	pip freeze | awk -F== '{print $1}' | xargs pip install -U
 }
+
+#================================
+# Programming - Language specific
+#================================
+
+# Python
+#-------
+
+# Note: All of the pyenv stuff is handled by the oh-my-zsh pyenv plugin so I no longer
+# need all of the lines for pyenv
+
+# Alias for pyenv install that ensures that the PYTHON_CONFIGURE_OPTS env variable is set
+# to "--enable-shared"
+alias pyenv_install='env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install'
+
+# Alias for pyenv virtualenv that ensures that the PYTHON_CONFIGURE_OPTS env variable is
+# set to "--enable-shared"
+# This one actually might have no effect. Will comment it out for the time being.
+#alias pyenv_venv='env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv virtualenv'
+
+# R
+# -
+
+# Launch R via radian
+alias r='radian'
 
 #======================================
 # Aliases for databases/web development
@@ -417,4 +397,6 @@ $_Z_NO_RESOLVE_SYMLINKS=true
 #================
 
 # Import colorscheme from pywal asynchronously
-(cat ~/.cache/wal/sequences &)
+# Call cat via absolute path since 'bat' is aliased to 'cat'
+#(cat ~/.cache/wal/sequences &)
+(/usr/bin/cat ~/.cache/wal/sequences &)

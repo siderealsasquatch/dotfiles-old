@@ -293,9 +293,9 @@ exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id caffeine
 
 # Start xfce4-power-manager
-#exec --no-startup-id xfce4-power-manager
+exec --no-startup-id xfce4-power-manager
 # Try mate-power-manager again
-exec --no-startup-id mate-power-manager
+#exec --no-startup-id mate-power-manager
 
 # Start nm-applet
 exec --no-startup-id nm-applet
@@ -304,7 +304,8 @@ exec --no-startup-id nm-applet
 exec --no-startup-id pa-applet
 
 # Start steam in silent mode
-exec --no-startup-id /usr/bin/steam-runtime -silent %U
+#exec --no-startup-id /usr/bin/steam-runtime -silent %U
+exec --no-startup-id /usr/bin/steam -silent %U
 
 # Start xss-lock with betterlockscreen
 exec --no-startup-id xss-lock -- betterlockscreen -l
@@ -323,7 +324,7 @@ exec --no-startup-id xcape -e 'Control_L=Escape'
 bindsym $mod+t exec Thunar
 
 # Start steam-native
-bindsym $mod+g exec steam-native
+bindsym $mod+g exec steam
 
 # Start steam-runtime
 bindsym $mod+Shift+g exec steam-runtime

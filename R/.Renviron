@@ -1,3 +1,3 @@
 # Set package installation directory for current user (should be fahmi)
-#R_LIBS_USER=~/.Rlibs
-R_LIBS_USER=~/dir_links/windows-share/tmp/tmp_libs/Rlibs_linux
+R_LIBS_USER=~/.Rlibs
+#R_LIBS_USER=~/dir_links/windows-share/tmp/tmp_libs/Rlibs_linux

@@ -36,7 +36,7 @@ padding = 0
 module-margin-left = 0
 module-margin-right = 0
 
-font-0 = "Victor Mono:pixelsize=10;1"
+font-0 = "VictorMono Nerd Font:pixelsize=10;1"
 font-1 = siji:pixelsize=14;2
 font-2 = "Symbols Nerd Font:pixelsize=10;1"
 font-3 = "Symbols Nerd Font:pixelsize=45;2"
@@ -254,7 +254,7 @@ label-padding = 1
 [module/update-arch]
 type = custom/script
 exec = ~/.config/polybar/modules/updates-arch-combined.sh
-interval = 5
+interval = 500
 
 format-foreground = ${colors.background}
 format-background = ${colors.color5}
