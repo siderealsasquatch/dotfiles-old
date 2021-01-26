@@ -5,7 +5,8 @@ call plug#begin('~/.config/nvim/plugged')
 "-----------
 
 " Plugins which add functionality
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/syntastic'
@@ -22,28 +23,17 @@ Plug 'airblade/vim-gitgutter'
 Plug 'shmup/vim-sql-syntax'
 
 " Vim colors
-Plug 'reedes/vim-colors-pencil'
-Plug 'morhetz/gruvbox'
-Plug 'rakr/vim-one'
+Plug 'rafi/awesome-vim-colorschemes'
 Plug 'Marfisc/vorange'
-Plug 'dikiaap/minimalist'
 Plug 'ashfinal/vim-colors-violet'
 Plug 'ashfinal/vim-colors-paper'
 Plug 'KabbAmine/yowish.vim'
-Plug 'nanotech/jellybeans.vim'
-Plug 'AlessandroYorba/Sierra'
-Plug 'AlessandroYorba/Alduin'
-Plug 'danilo-augusto/vim-afterglow'
-Plug 'ayu-theme/ayu-vim'
 Plug 'trevordmiller/nova-vim'
 Plug 'nightsense/snow'
 Plug 'nightsense/stellarized'
 Plug 'challenger-deep-theme/vim', { 'as' : 'challenger-deep' }
-Plug 'mhartington/oceanic-next'
 Plug 'srcery-colors/srcery-vim'
 Plug 'jnurmine/Zenburn'
-Plug 'cocopon/iceberg.vim'
-Plug 'ayu-theme/ayu-vim'
 Plug 'larsbs/vimterial_dark'
 Plug 'tyrannicaltoucan/vim-quantum'
 Plug 'tyrannicaltoucan/vim-deep-space'
@@ -58,7 +48,8 @@ call plug#end()
 " Neovim settings
 "----------------
 
-let g:python3_host_prog = '/usr/bin/python3'
+"let g:python3_host_prog = '/usr/bin/python3'
+"let g:python3_host_prog = '/usr/bin/env python'
 
 "-----------------
 " General features
@@ -270,31 +261,30 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 "let g:airline_left_sep = ''
 "let g:airline_right_sep = ''
 
-"-------------
-" CtrlP Plug
-"-------------
+"-----------
+" fzf Plugin
+"-----------
 
-" Set ignores
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-let g:ctrlp_custom_ignore = {
-	\'dir': '\v[\/]\.(git|hg|svn)$',
-	\'file': '\v\.(exe|so|dll)$'
-	\}
+" Set default command (for some reason it's not picking up the one set in the current
+" shell session)
+let $FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow -g '!.{git,__py*}/*' 2> /dev/null"
 
-" Invoke CtrlP (regular mode?)
-nmap <leader>p :CtrlP<CR>
+" Set default opts (for some reason it's not picking up the ones set in the current
+" shell session)
+let $FZF_DEFAULT_OPTS="--reverse --border --preview 'batcat --theme ansi-dark {}'"
 
-" Invoke CtrlP but allows me to select a directory
-nmap <leader>pd :CtrlP
+" fzf on buffers
+nmap <leader>b :Buffers<CR>
 
-" Buffer mode
-nmap <leader>pb :CtrlPBuffer<CR>
+" fzf on files in the current directory
+nmap <leader>p :Files<CR>
 
-" Mixed mode. Searches files, buffers and MRUs
-nmap <leader>pm :CtrlPMixed<CR>
+" fzf for lines in the current buffer (i.e., the current file)
+nmap <leader>/ :BLines<CR>
 
-" MRU (Most Recently Used) mode
-nmap <leader>ps :CtrlPMRU<CR>
+" fzf for files in the current directory based on their contents (i.e., search for file
+" containing specific line)
+nmap <leader>f :Rg<CR>
 
 "-----------------
 " NERD tree plugin
