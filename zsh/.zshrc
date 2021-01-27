@@ -17,8 +17,8 @@ ZSH_THEME="spaceship"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 #plugins=(git vi-mode pyenv pip autojump archlinux tmux)
-#plugins=(git vi-mode pyenv z archlinux tmux zsh-autosuggestions zsh-syntax-highlighting fzf)
-plugins=(git vi-mode pyenv z archlinux tmux zsh-autosuggestions zsh-syntax-highlighting fzf fzf-tab)
+#plugins=(git vi-mode pyenv z archlinux tmux zsh-autosuggestions zsh-syntax-highlighting fzf fzf-tab)
+plugins=(git vi-mode asdf z archlinux tmux zsh-autosuggestions zsh-syntax-highlighting fzf fzf-tab)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -54,11 +54,11 @@ export STEAM_FRAME_FORCE_CLOSE=1
 # ----
 
 # Set pyenv home and add to path
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+#export PYENV_ROOT="$HOME/.pyenv"
+#export PATH="$PYENV_ROOT/bin:$PATH"
 
 # Disable venv prompt as the zsh prompts I use handle it.
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+#export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 # fzf
 # ---
