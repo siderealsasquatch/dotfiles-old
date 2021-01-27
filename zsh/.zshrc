@@ -74,7 +74,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='fd -t d -HL -E "{.git,__py*}"'
 
 # Set default options for the fzf app
-export FZF_DEFAULT_OPTS="--reverse --border"
+export FZF_DEFAULT_OPTS="-m --reverse --border"
 
 # Final path entry
 # ----------------

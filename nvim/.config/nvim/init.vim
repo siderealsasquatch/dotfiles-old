@@ -5,7 +5,9 @@ call plug#begin('~/.config/nvim/plugged')
 "-----------
 
 " Plugins which add functionality
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf.vim'
+"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug '/usr/bin/fzf'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/syntastic'
@@ -264,31 +266,21 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 "let g:airline_left_sep = ''
 "let g:airline_right_sep = ''
 
-"-------------
-" CtrlP Plug
-"-------------
+"-----------
+" fzf plugin
+"-----------
 
-" Set ignores
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-let g:ctrlp_custom_ignore = {
-	\'dir': '\v[\/]\.(git|hg|svn)$',
-	\'file': '\v\.(exe|so|dll)$'
-	\}
+" Keybind to search for files in current directory
+nmap <leader>p :Files<CR>
 
-" Invoke CtrlP (regular mode?)
-nmap <leader>p :CtrlP<CR>
+" Keybind to search for lines in the current buffer (file)
+nmap <leader>/ :BLines<CR>
 
-" Invoke CtrlP but allows me to select a directory
-nmap <leader>pd :CtrlP
+" Keybind to search through buffers
+nmap <leader>b :Buffers<CR>
 
-" Buffer mode
-nmap <leader>pb :CtrlPBuffer<CR>
-
-" Mixed mode. Searches files, buffers and MRUs
-nmap <leader>pm :CtrlPMixed<CR>
-
-" MRU (Most Recently Used) mode
-nmap <leader>ps :CtrlPMRU<CR>
+" Keybind to lines in all files in the current directory containing the given pattern
+nmap <leader>f :Rg<CR>
 
 "-----------------
 " NERD tree plugin
