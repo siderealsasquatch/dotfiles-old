@@ -23,8 +23,10 @@ ZSH_THEME="spaceship"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 #plugins=(git vi-mode fzf pyenv pip autojump tmux ubuntu zsh-autosuggestions zsh-syntax-highlighting)
-plugins=(git vi-mode fzf fzf-tab pyenv pip z tmux ubuntu zsh-autosuggestions zsh-syntax-highlighting
-	nvm npm)
+#plugins=(git vi-mode fzf fzf-tab pyenv pip z tmux ubuntu zsh-autosuggestions zsh-syntax-highlighting
+#	nvm npm)
+plugins=(git asdf vi-mode fzf fzf-tab pip z tmux ubuntu zsh-autosuggestions zsh-syntax-highlighting)
+
 
 source $ZSH/oh-my-zsh.sh
 
@@ -139,7 +141,7 @@ bindkey '^ ' autosuggest-accept
 #========
 
 # Alias fdfind to fd
-alias fd='fdfind'
+#alias fd='fdfind'
 
 #===========
 # ls aliases
@@ -157,7 +159,7 @@ alias ll='ls -l'
 #============
 
 # Alias bat to cat
-alias cat='batcat --theme ansi-dark'
+alias cat='bat --theme ansi-dark'
 
 #=============
 # grep aliases
@@ -408,3 +410,5 @@ relink_omp_ini() {
 
 # Created by `userpath` on 2020-04-21 02:30:15
 #export PATH="$PATH:/home/fahmi/.local/bin"
+
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
