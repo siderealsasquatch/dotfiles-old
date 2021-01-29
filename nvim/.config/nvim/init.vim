@@ -454,10 +454,14 @@ nnoremap <leader>ft :Floaterms<CR>
 " floaterm
 " ========
 
+" Settings
+" --------
+
+" Set floaterm title to nothing
+let g:floaterm_title = ''
+
 " Keybindings
 " -----------
-"
-"  Rethink keybindings for terminal mode. I've commented them out for now.
 
 " Open new floaterm instance
 nnoremap <silent> <F6> :FloatermNew --autoclose=1<CR>
@@ -465,16 +469,16 @@ tnoremap <silent> <F6> <C-\><C-n>:FloatermNew --autoclose=1<CR>
 
 "Open new terminal instance on right side (this is specifically for using a REPL other
 "than the ones already specified)
-nnoremap <silent> <leader>tnr :FloatermNew --wintype=vsplit --position=rightbelow --width=0.3 --autoclose=2<CR>
-"tnoremap <silent> <leader>tnr :<C-\><C-n>FloatermNew --position=right --height=1.0 --width=0.3 --autoclose=2<CR>
+"nnoremap <silent> <leader>tnr :FloatermNew --wintype=vsplit --position=rightbelow --width=0.3 --autoclose=2<CR>
+nnoremap <silent> <leader>tnr :FloatermNew --position=bottom --width=0.7 --height=0.4 --autoclose=2<CR>
 
 " Move to next floaterm instance
 nnoremap <silent> <F8> :FloatermNext<CR>
-tnoremap <silent> <F8> :<C-\><C-n>FloatermNext<CR>
+tnoremap <silent> <F8> <C-\><C-n>:FloatermNext<CR>
 
 " Move to previous floaterm instance
 nnoremap <silent> <F7> :FloatermPrev<CR>
-tnoremap <silent> <F7> :<C-\><C-n>FloatermPrev<CR>
+tnoremap <silent> <F7> <C-\><C-n>:FloatermPrev<CR>
 
 " Toggle current floaterm instance
 nnoremap <silent> <F9> :FloatermToggle<CR>
@@ -498,14 +502,19 @@ vnoremap <C-c><C-c> :'<,'>FloatermSend<CR>
 nnoremap <C-c><C-x> :%FloatermSend<CR>
 
 " Open Python interpreter in new terminal instance
-nnoremap <silent> <leader>tpp :FloatermNew --wintype=vsplit --position=rightbelow --width=0.3 --autoclose=2 python<CR>
+"nnoremap <silent> <leader>tpp :FloatermNew --wintype=vsplit --position=rightbelow --width=0.3 --autoclose=2 python<CR>
+nnoremap <silent> <leader>tpp :FloatermNew --position=bottom --width=0.7 --height=0.4 --autoclose=2 python<CR>
 
 " Open IPython interpreter in new terminal instance
-nnoremap <silent> <leader>tpi :FloatermNew --wintype=vsplit --position=rightbelow --width=0.3 --autoclose=2 ipython<CR>
+"nnoremap <silent> <leader>tpi :FloatermNew --wintype=vsplit --position=rightbelow --width=0.3 --autoclose=2 ipython<CR>
+nnoremap <silent> <leader>tpi :FloatermNew --position=bottom --width=0.7 --height=0.4 --autoclose=2 ipython<CR>
 
 " =========
 " NERD tree
 " =========
+
+" Might get rid of NERDTree as I'm starting to find myself use it less and less especially
+" with the addition of floaterm and fzf
 
 " Open NERD tree panel
 nmap <leader>d :NERDTreeToggle<CR>
