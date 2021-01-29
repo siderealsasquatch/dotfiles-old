@@ -8,20 +8,13 @@
 # Path to your oh-my-zsh installation.
 export ZSH="/home/fahmi/.oh-my-zsh"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# Theme
 ZSH_THEME="spaceship"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
+# Plugins
 #plugins=(git vi-mode fzf pyenv pip autojump tmux ubuntu zsh-autosuggestions zsh-syntax-highlighting)
 #plugins=(git vi-mode fzf fzf-tab pyenv pip z tmux ubuntu zsh-autosuggestions zsh-syntax-highlighting
 #	nvm npm)
@@ -29,15 +22,6 @@ plugins=(git asdf vi-mode fzf fzf-tab pip z tmux ubuntu zsh-autosuggestions zsh-
 
 
 source $ZSH/oh-my-zsh.sh
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 
 #==================
 # zsh shell options
@@ -61,6 +45,13 @@ export MAKEFLAGS="-j$(nproc)"
 
 # Add ~/bin to the system path
 export PATH=~/bin:~/.local/bin:$PATH
+
+#=================
+# WSL related vars
+#=================
+
+# Set DISPLAY var for connecting to external X server
+export DISPLAY=localhost:0.0
 
 #=====================
 # Comandline prog vars
@@ -90,11 +81,20 @@ export FZF_DEFAULT_OPTS="-m --reverse --border --preview 'batcat --theme ansi-da
 # -----
 
 # Set pyenv home (root) var and add bin dir from pyenv home to system path
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+#export PYENV_ROOT="$HOME/.pyenv"
+#export PATH="$PYENV_ROOT/bin:$PATH"
 
 # Turn off pyenv prompts and let the zsh prompt handle it
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+#export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
+# Python
+# ------
+
+# Set location for virtualenvs
+export WORKON_HOME=~/.py-venvs
+
+# Source virtualenvwrapper script
+. $(asdf where python)/bin/virtualenvwrapper.sh
 
 #####################
 # Other Shell Stuff #
@@ -407,8 +407,3 @@ relink_omp_ini() {
 
 # Note: all of the autojump stuff is handled by the autojump plugin so I no longer need to
 # source the autojump script.
-
-# Created by `userpath` on 2020-04-21 02:30:15
-#export PATH="$PATH:/home/fahmi/.local/bin"
-
-#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
