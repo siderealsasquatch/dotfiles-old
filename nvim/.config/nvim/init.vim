@@ -7,7 +7,6 @@ call plug#begin('~/.config/nvim/plugged')
 " Additional functionality
 " ------------------------
 
-"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug '/usr/bin/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
@@ -22,30 +21,37 @@ Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'sheerun/vim-polyglot'
+Plug 'voldikss/fzf-floaterm'
+Plug 'voldikss/vim-floaterm'
+Plug 'TaDaa/vimade'
 
 " Color schemes
 " -------------
 
 Plug 'rafi/awesome-vim-colorschemes'
-Plug 'Marfisc/vorange'
-Plug 'ashfinal/vim-colors-violet'
-Plug 'ashfinal/vim-colors-paper'
-Plug 'KabbAmine/yowish.vim'
 Plug 'trevordmiller/nova-vim'
 Plug 'nightsense/snow'
 Plug 'nightsense/stellarized'
 Plug 'challenger-deep-theme/vim', { 'as' : 'challenger-deep' }
 Plug 'srcery-colors/srcery-vim'
-Plug 'jnurmine/Zenburn'
-Plug 'larsbs/vimterial_dark'
 Plug 'tyrannicaltoucan/vim-quantum'
 Plug 'tyrannicaltoucan/vim-deep-space'
-Plug 'drewtempelmeyer/palenight.vim'
+Plug 'ghifarit53/tokyonight-vim'
+Plug 'Matt-Gleich/monovibrant'
+Plug 'dracula/vim'
+Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+Plug 'haishanh/night-owl.vim'
 
 " Fonts
 " -----
 
+" Might not need this anymore since I'm using NerdFonts
 Plug 'powerline/fonts', { 'do' : './install.sh' }
+
+" Misc
+" ----
+"
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
@@ -55,12 +61,6 @@ call plug#end()
 
 " General
 " -------
-
-"let g:python3_host_prog = '/usr/bin/python3'
-"let g:python3_host_prog = '/usr/bin/env python'
-
-" Remap Escape key
-"imap jk <Esc>
 
 " Disable mouse support
 set mouse=""
@@ -175,6 +175,7 @@ nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
 
 " Remap keys for switching between windows when a terminal is active
+" Use leader key for now
 tnoremap <A-h> <C-\><C-n><C-w>h
 tnoremap <A-j> <C-\><C-n><C-w>j
 tnoremap <A-k> <C-\><C-n><C-w>k
@@ -192,25 +193,22 @@ set splitright
 " ----------------
 
 " Open a new empty buffer
-nmap <leader>T :enew<CR>
+nmap <leader>bn :enew<CR>
 
 " Move to the next buffer
-nmap <leader>l :bnext<CR>
+nmap <leader>] :bnext<CR>
 
 " Move to the previous buffer
-nmap <leader>h :bprevious<CR>
+nmap <leader>[ :bprevious<CR>
 
 " Close the current buffer and move to the previous one
 nmap <leader>bq :bp <BAR> bd #<CR>
-
-" Show all open buffers and their status
-nmap <leader>bl :ls<CR>
 
 " Move to previously edited buffer
 nmap <tab> :b#<CR>
 
 " Close/delete current buffer
-nmap <C-C> :bd<CR>
+nmap <C-C><C-d> :bd<CR>
 
 " ===============
 " Vim colorscheme
@@ -225,26 +223,9 @@ endif
 set background=dark
 
 " Set the vim colorscheme
-"let g:gruvbox_contrast_dark = 'hard'
-"let g:gruvbox_italic = 1
-"let g:oceanic_next_terminal_bold = 1
-"let g:oceanic_next_terminal_italic = 1
-"let g:srcery_italic = 1
-"let g:srcery_bold = 1
-"let g:sierra_Sunset = 1
-"let g:quantum_black = 1
-"color ayu
-"color stellarized
-color challenger_deep
-"color palenight
-"color iceberg
-"color snow
-"let g:airline_theme = 'palenight'
-"let g:airline_theme = 'stellarized_dark'
-"let g:airline_theme = 'oceanicnext'
-"let g:airline_theme = 'snow_dark'
-"let g:airline_theme = 'moonfly'
-"let g:airline_theme = 'vorange'
+let g:material_theme_style = 'ocean'
+let g:material_terminal_italics = 1
+color material
 
 "###################
 "# Plugin settings #
@@ -259,18 +240,6 @@ color challenger_deep
 
 " Install/load coc extensions
 " Remove coc-zsh for now as the server it's hosted on seems down.
-"let g:coc_global_extensions = [
-	"\ 'coc-marketplace',
-	"\ 'coc-highlight',
-	"\ 'coc-yank',
-	"\ 'coc-spell-checker',
-	"\ 'coc-prettier',
-	"\ 'coc-json',
-	"\ 'coc-sql',
-	"\ 'coc-zsh',
-	"\ 'coc-sh',
-	"\ 'coc-pyright'
-	"\]
 let g:coc_global_extensions = [
 	\ 'coc-marketplace',
 	\ 'coc-highlight',
@@ -417,6 +386,9 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>cp  :<C-u>CocListResume<CR>
 
+" Binding for the coc-yank plugin
+nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<CR>
+
 " =======
 " Airline
 " =======
@@ -455,24 +427,93 @@ let $FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow -g '!.{git,__
 let $FZF_DEFAULT_OPTS="--reverse --border --preview 'batcat --theme ansi-dark {}'"
 
 " fzf on buffers
-nmap <leader>b :Buffers<CR>
+nmap <leader>fb :Buffers<CR>
 
 " fzf on files in the current directory
-nmap <leader>p :Files<CR>
+nmap <leader>fp :Files<CR>
 
 " fzf for lines in the current buffer (i.e., the current file)
-nmap <leader>/ :BLines<CR>
+nmap <leader>f/ :BLines<CR>
 
 " fzf for files in the current directory based on their contents (i.e., search for file
 " containing specific line)
-nmap <leader>f :Rg<CR>
+nmap <leader>fr :Rg<CR>
+
+" fzf for all active floaterms.
+nnoremap <leader>ft :Floaterms<CR>
+
+" ========
+" floaterm
+" ========
+
+" Settings
+" --------
+
+" Set floaterm title to nothing
+let g:floaterm_title = ''
+
+" Keybindings
+" -----------
+
+" Open new floaterm instance
+nnoremap <silent> <F6> :FloatermNew --autoclose=1<CR>
+tnoremap <silent> <F6> <C-\><C-n>:FloatermNew --autoclose=1<CR>
+
+"Open new terminal instance on right side (this is specifically for using a REPL other
+"than the ones already specified)
+"nnoremap <silent> <leader>tnr :FloatermNew --wintype=split --position=rightbelow --height=0.3 --autoclose=2<CR>
+nnoremap <silent> <leader>tnr :FloatermNew --position=bottom --width=0.7 --height=0.4 --autoclose=2<CR>
+
+" Move to next floaterm instance
+nnoremap <silent> <F8> :FloatermNext<CR>
+tnoremap <silent> <F8> <C-\><C-n>:FloatermNext<CR>
+
+" Move to previous floaterm instance
+nnoremap <silent> <F7> :FloatermPrev<CR>
+tnoremap <silent> <F7> <C-\><C-n>:FloatermPrev<CR>
+
+" Toggle current floaterm instance
+nnoremap <silent> <F9> :FloatermToggle<CR>
+tnoremap <silent> <F9> <C-\><C-n>:FloatermToggle<CR>
+
+" Kill current floaterm instance
+nnoremap <silent> <F10> :FloatermKill<CR>
+tnoremap <silent> <F10> <C-\><C-n>:FloatermKill<CR>
+
+" Kill all floaterm instances
+nnoremap <silent> <F11> :FloatermKill!<CR>
+tnoremap <silent> <F11> <C-\><C-n>:FloatermKill!<CR>
+
+" Send current line to current instance of floaterm
+nnoremap <C-c><C-c> :FloatermSend<CR>
+
+" Send current selection to current instance of floaterm
+vnoremap <C-c><C-c> :'<,'>FloatermSend<CR>
+
+" Send entire buffer to current instance of floaterm
+nnoremap <C-c><C-x> :%FloatermSend<CR>
+
+" Open a floaterm instance with lazygit
+nnoremap <silent> <leader>tg :FloatermNew --height=0.8 --width=0.7 --autoclose=2 lazygit<CR>
+
+" Open Python interpreter in new terminal instance
+nnoremap <silent> <leader>tpp :FloatermNew --position=bottom --width=0.7 --height=0.4 --autoclose=2 python<CR>
+
+" Open IPython interpreter in new terminal instance
+nnoremap <silent> <leader>tpi :FloatermNew --position=bottom --width=0.7 --height=0.4 --autoclose=2 ipython<CR>
 
 " =========
 " NERD tree
 " =========
 
+" Might get rid of NERDTree as I'm starting to find myself use it less and less especially
+" with the addition of floaterm and fzf
+
 " Open NERD tree panel
 nmap <leader>d :NERDTreeToggle<CR>
+
+" Set NERD tree width
+let g:NERDTreeWinSize = 35
 
 " ==============
 " NERD commenter
@@ -507,3 +548,13 @@ let g:vim_markdown_folding_disabled = 1
 
 " Set indentation (i.e. tabwidth) to 2
 let g:vim_markdwon_new_list_item_indent = 2
+
+" ======
+" Vimade
+" ======
+
+" This must be here to enable vimade
+let g:vimade = {}
+
+" Set fade level
+let g:vimade.fadelevel = 0.3

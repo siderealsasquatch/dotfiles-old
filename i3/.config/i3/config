@@ -15,7 +15,9 @@ font pango:monospace 8
 #============
 
 # Set mod key to Alt
-set $mod Mod1
+# Trying out windows key
+#set $mod Mod1
+set $mod Mod4
 
 # Set mod key for floating windows to be Alt as well
 floating_modifier $mod

@@ -121,9 +121,9 @@ setopt extended_glob
 # Aliases #
 ###########
 
-#===========
-# ls aliases
-#===========
+#===
+# ls
+#===
 
 #alias ls='ls --color=auto'
 alias ll='ls -alF'
@@ -132,25 +132,29 @@ alias l='ls -CF'
 alias l.='ls -d .*(/,.,@)' # Read more about zsh glob qualifiers (i.e., everything in parentheses)
 alias ll='ls -l'
 
-#============
-# cat aliases
-#============
+#====
+# cat
+#====
 
 # Replace cat with bat and set it to the terminal theme
 alias cat='bat --theme ansi-dark'
 
-#=============
-# grep aliases
-#=============
+#=====
+# grep
+#=====
 
 # Add color to grep matches
 alias grep='grep --color=auto'
 
 # grep with Perl regex syntax
-#greP() {
-	#grep -P "$@"
-#}
 alias greP='grep -P'
+
+#========
+# lazygit
+#========
+
+# Ensure that lazygit is run with TERM=xterm-kitty
+alias lazygit='env TERM=xterm-kitty lazygit'
 
 #=====================
 # Administrative stuff
@@ -241,9 +245,6 @@ unbak() {
 #===============
 
 # Set nvim to vim
-#vim() {
-	#nvim "$@"
-#}
 alias vim='nvim'
 
 #======================
@@ -295,12 +296,19 @@ pipud() {
 
 # Alias for pyenv install that ensures that the PYTHON_CONFIGURE_OPTS env variable is set
 # to "--enable-shared"
-alias pyenv_install='env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install'
+#alias pyenv_install='env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install'
 
 # Alias for pyenv virtualenv that ensures that the PYTHON_CONFIGURE_OPTS env variable is
 # set to "--enable-shared"
 # This one actually might have no effect. Will comment it out for the time being.
 #alias pyenv_venv='env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv virtualenv'
+
+# Set virtualenvwrapper env variables
+export WORKON_HOME=~/.py-venvs
+
+# Source virtualenvwrapper script
+# Find a cleaner way of doing this
+. "$(asdf where python)"/bin/virtualenvwrapper.sh
 
 # R
 # -

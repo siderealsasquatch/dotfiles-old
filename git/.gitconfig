@@ -1,0 +1,9 @@
+[user]
+	email = fnugraha@gmail.com
+	name = Fahmi Adi Nugraha
+
+[core]
+	pager = delta --line-numbers
+
+[delta]
+	syntax-theme = base16
