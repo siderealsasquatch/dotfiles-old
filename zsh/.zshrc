@@ -9,16 +9,14 @@
 export ZSH="/home/fahmi/.oh-my-zsh"
 
 # Theme
-ZSH_THEME="spaceship"
+#ZSH_THEME="spaceship"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
 # Plugins
-#plugins=(git vi-mode fzf pyenv pip autojump tmux ubuntu zsh-autosuggestions zsh-syntax-highlighting)
-#plugins=(git vi-mode fzf fzf-tab pyenv pip z tmux ubuntu zsh-autosuggestions zsh-syntax-highlighting
-#	nvm npm)
-plugins=(git asdf vi-mode fzf fzf-tab pip z tmux ubuntu zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git vi-mode direnv fzf fzf-tab z tmux ubuntu zsh-autosuggestions zsh-syntax-highlighting
+	nix-zsh-completions)
 
 
 source $ZSH/oh-my-zsh.sh
@@ -68,14 +66,26 @@ export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow -g '!.{git,
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # alt+c
-export FZF_ALT_C_COMMAND='fdfind -t d -HL -E "{.git,__py*}/*"'
+export FZF_ALT_C_COMMAND='fd -t d -HL -E "{.git,__py*}/*"'
 
 # Set default options for the fzf app
-export FZF_DEFAULT_OPTS="-m --reverse --border --preview 'batcat --theme ansi-dark {}'"
+export FZF_DEFAULT_OPTS="-m --reverse --border --preview 'bat --theme ansi-dark {}'"
 
 #=================
 # Programming vars
 #=================
+
+# Spark
+# -----
+
+export SPARK_HOME=/opt/spark
+export PATH="$SPARK_HOME/bin:$SPARK_HOME/sbin:$PATH"
+
+# node
+# ----
+
+# Add ~/.npm-global/bin to PATH
+export PATH=~/.npm-global/bin:${PATH}
 
 # pyenv
 # -----
@@ -91,10 +101,10 @@ export FZF_DEFAULT_OPTS="-m --reverse --border --preview 'batcat --theme ansi-da
 # ------
 
 # Set location for virtualenvs
-export WORKON_HOME=~/.py-venvs
+#export WORKON_HOME=~/.py-venvs
 
 # Source virtualenvwrapper script
-. $(asdf where python)/bin/virtualenvwrapper.sh
+#. $(asdf where python)/bin/virtualenvwrapper.sh
 
 #####################
 # Other Shell Stuff #
@@ -147,6 +157,10 @@ bindkey '^ ' autosuggest-accept
 # ls aliases
 #===========
 
+# Alias lsd to ls
+alias ls='lsd'
+#alias ls='exa --icons'
+
 #alias ls='ls --color=auto'
 alias ll='ls -alF'
 alias la='ls -A'
@@ -159,7 +173,10 @@ alias ll='ls -l'
 #============
 
 # Alias bat to cat
-alias cat='bat --theme ansi-dark'
+alias cat='bat --theme ansi'
+
+# Alias cat to syscat
+alias syscat='/bin/cat'
 
 #=============
 # grep aliases
@@ -300,10 +317,10 @@ gitrepo() {
 alias pipud="pip freeze | awk -F== '{print $1}' | xargs pip install -U"
 
 # Install python version with pyenv with CONFIGURE_OPTS set to '--enable-shared'
-alias pyenv_install="env CONFIGURE_OPTS=--enable-shared pyenv install"
+#alias pyenv_install="env CONFIGURE_OPTS=--enable-shared pyenv install"
 
 # Create pyenv virtualenv with CONFIGURE_OPTS set to '--enable-shared'
-alias pyenv_venv="env CONFIGURE_OPTS=--enable-shared pyenv virtualenv"
+#alias pyenv_venv="env CONFIGURE_OPTS=--enable-shared pyenv virtualenv"
 
 #======================================
 # Aliases for databases/web development
@@ -362,14 +379,14 @@ cdl() {
 }
 
 # ls but with directories displayed before files
-lsd() {
-	ls --group-directories-first "$@"
-}
+#lsd() {
+	#ls --group-directories-first "$@"
+#}
 
 # Combine cdl and lsd
-cdlsd() {
-	cd "$@" && ls --group-directories-first
-}
+#cdlsd() {
+	#cd "$@" && ls --group-directories-first
+#}
 
 # Clear screen and list directory contents
 alias cls='clear && ls'
@@ -407,3 +424,17 @@ relink_omp_ini() {
 
 # Note: all of the autojump stuff is handled by the autojump plugin so I no longer need to
 # source the autojump script.
+
+#########################
+# Inits for shell tools #
+#########################
+
+# Nix
+# ---
+if [ -e /home/fahmi/.nix-profile/etc/profile.d/nix.sh ]; then . /home/fahmi/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+# Starship prompt
+eval "$(starship init zsh)"
+
+# any-nix-shell
+any-nix-shell zsh | source /dev/stdin

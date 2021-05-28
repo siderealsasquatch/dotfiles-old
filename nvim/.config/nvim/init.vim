@@ -16,14 +16,18 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
-Plug 'godlygeek/tabular' " Thinking about replacing this with easyalign
-Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'sheerun/vim-polyglot'
 Plug 'voldikss/fzf-floaterm'
 Plug 'voldikss/vim-floaterm'
 Plug 'TaDaa/vimade'
+Plug 'justinmk/vim-sneak'
+Plug 'haya14busa/incsearch.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'liuchengxu/vista.vim'
+Plug 'unblevable/quick-scope'
 
 " Color schemes
 " -------------
@@ -38,6 +42,9 @@ Plug 'tyrannicaltoucan/vim-quantum'
 Plug 'tyrannicaltoucan/vim-deep-space'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'haishanh/night-owl.vim'
+Plug 'pineapplegiant/spaceduck', { 'branch': 'main'  }
+Plug 'bluz71/vim-moonfly-colors'
+Plug 'ghifarit53/tokyonight-vim'
 
 " Fonts
 " -----
@@ -194,14 +201,11 @@ set splitright
 " Managing buffers
 " ----------------
 
-" Open a new empty buffer
-nmap <leader>T :enew<CR>
-
 " Move to the next buffer
-nmap <leader>l :bnext<CR>
+nmap <leader>] :bnext<CR>
 
 " Move to the previous buffer
-nmap <leader>h :bprevious<CR>
+nmap <leader>[ :bprevious<CR>
 
 " Close the current buffer and move to the previous one
 nmap <leader>bq :bp <BAR> bd #<CR>
@@ -213,7 +217,7 @@ nmap <leader>bl :ls<CR>
 nmap <tab> :b#<CR>
 
 " Close/delete current buffer
-nmap <C-C> :bd<CR>
+nmap <C-C><C-D> :bd<CR>
 
 " ===============
 " Vim colorscheme
@@ -228,9 +232,13 @@ endif
 set background=dark
 
 " Set the vim colorscheme
-let g:material_terminal_italics = 1
-let g:material_theme_style = 'ocean'
-color material
+"let g:material_terminal_italics = 1
+"let g:material_theme_style = 'ocean'
+"let g:airline_theme = 'spaceduck'
+let g:tokyonight_style = 'night'
+let g:tokyonight_enable_italic = 1
+"let g:onedark_terminal_italics = 1
+color tokyonight
 
 "let g:onedark_terminal_italics = 1
 "color onedark
@@ -256,7 +264,7 @@ let g:coc_global_extensions = [
 	\ 'coc-json',
 	\ 'coc-sql',
 	\ 'coc-sh',
-	\ 'coc-pyright'
+	\ 'coc-jedi'
 \]
 
 " Figure out what all these do later
@@ -432,7 +440,7 @@ let $FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow -g '!.{git,__
 
 " Set default opts (for some reason it's not picking up the ones set in the current
 " shell session)
-let $FZF_DEFAULT_OPTS="--reverse --border --preview 'batcat --theme ansi-dark {}'"
+let $FZF_DEFAULT_OPTS="--reverse --border --preview 'bat --theme ansi-dark {}'"
 
 " fzf on buffers
 nmap <leader>fb :Buffers<CR>
@@ -443,12 +451,24 @@ nmap <leader>fp :Files<CR>
 " fzf for lines in the current buffer (i.e., the current file)
 nmap <leader>f/ :BLines<CR>
 
+" fzf for lines in all loaded buffers
+nmap <leader>fl :Lines<CR>
+
+" fzf for tags in the current project
+nnoremap <leader>ftp :Tags<CR>
+
+" fzf for tags in the current buffer
+nnoremap <leader>ftb :BTags<CR>
+
 " fzf for files in the current directory based on their contents (i.e., search for file
 " containing specific line)
 nmap <leader>fr :Rg<CR>
 
 " fzf for all active floaterms.
 nnoremap <leader>ft :Floaterms<CR>
+
+" fzf for all marks
+nnoremap <leader>fm :Marks<CR>
 
 " ========
 " floaterm
@@ -464,13 +484,13 @@ let g:floaterm_title = ''
 " -----------
 
 " Open new floaterm instance
-nnoremap <silent> <F6> :FloatermNew --autoclose=1<CR>
-tnoremap <silent> <F6> <C-\><C-n>:FloatermNew --autoclose=1<CR>
+nnoremap <silent> <F6> :FloatermNew --height=0.8 --width=0.7 --autoclose=2<CR>
+tnoremap <silent> <F6> <C-\><C-n>:FloatermNew --height=0.8 --width=0.7 --autoclose=2<CR>
 
 "Open new terminal instance on right side (this is specifically for using a REPL other
 "than the ones already specified)
 "nnoremap <silent> <leader>tnr :FloatermNew --wintype=vsplit --position=rightbelow --width=0.3 --autoclose=2<CR>
-nnoremap <silent> <leader>tnr :FloatermNew --position=bottom --width=0.7 --height=0.4 --autoclose=2<CR>
+nnoremap <silent> <leader>trp :FloatermNew --position=bottom --width=0.9 --height=0.5 --autoclose=2<CR>
 
 " Move to next floaterm instance
 nnoremap <silent> <F8> :FloatermNext<CR>
@@ -485,12 +505,12 @@ nnoremap <silent> <F9> :FloatermToggle<CR>
 tnoremap <silent> <F9> <C-\><C-n>:FloatermToggle<CR>
 
 " Kill current floaterm instance
-nnoremap <silent> <F10> :FloatermKill<CR>
-tnoremap <silent> <F10> <C-\><C-n>:FloatermKill<CR>
+nnoremap <silent> <F3> :FloatermKill<CR>
+tnoremap <silent> <F3> <C-\><C-n>:FloatermKill<CR>
 
 " Kill all floaterm instances
-nnoremap <silent> <F11> :FloatermKill!<CR>
-tnoremap <silent> <F11> <C-\><C-n>:FloatermKill!<CR>
+nnoremap <silent> <F4> :FloatermKill!<CR>
+tnoremap <silent> <F4> <C-\><C-n>:FloatermKill!<CR>
 
 " Send current line to current instance of floaterm
 nnoremap <C-c><C-c> :FloatermSend<CR>
@@ -503,11 +523,19 @@ nnoremap <C-c><C-x> :%FloatermSend<CR>
 
 " Open Python interpreter in new terminal instance
 "nnoremap <silent> <leader>tpp :FloatermNew --wintype=vsplit --position=rightbelow --width=0.3 --autoclose=2 python<CR>
-nnoremap <silent> <leader>tpp :FloatermNew --position=bottom --width=0.7 --height=0.4 --autoclose=2 python<CR>
+nnoremap <silent> <leader>tpp :FloatermNew --position=bottom --width=0.9 --height=0.5 --autoclose=2 python<CR>
+"nnoremap <silent> <leader>tpp :FloatermNew --position=bottom --width=0.7 --height=0.4 --autoclose=2<CR>
 
 " Open IPython interpreter in new terminal instance
 "nnoremap <silent> <leader>tpi :FloatermNew --wintype=vsplit --position=rightbelow --width=0.3 --autoclose=2 ipython<CR>
-nnoremap <silent> <leader>tpi :FloatermNew --position=bottom --width=0.7 --height=0.4 --autoclose=2 ipython<CR>
+nnoremap <silent> <leader>tpi :FloatermNew --position=bottom --width=0.9 --height=0.5 --autoclose=2 ipython<CR>
+"nnoremap <silent> <leader>tpi :FloatermNew --position=bottom --width=0.7 --height=0.4 --autoclose=2<CR>
+
+" Open a floaterm instance containing lazygit.
+nnoremap <silent> <leader>tg :FloatermNew --width=0.7 --height=0.8 --autoclose=2 lazygit<CR>
+
+" Open a floaterm instance containing ranger.
+nnoremap <silent> <leader>tr :FloatermNew --autoclose=2 --height=0.8 --width=0.7 ranger<CR>
 
 " =========
 " NERD tree
@@ -565,3 +593,45 @@ let g:vimade = {}
 
 " Set fade level
 let g:vimade.fadelevel = 0.3
+
+" =====
+" sneak
+" =====
+
+" Enable labels for sneak
+let g:sneak#label = 1
+
+" =====
+" Vista
+" =====
+
+" Settings
+" --------
+
+" Set the width of the vista window
+let g:vista_sidebar_width = 40
+
+" Keybindings
+" -----------
+
+" Toggle vista window
+nnoremap <silent> <leader>vv :Vista!!<CR>
+
+" Open vista window based on coc
+nnoremap <silent> <leader>vc :Vista coc<CR>
+
+" Open vista window based on ctags
+nnoremap <silent> <leader>vt :Vista ctags<CR>
+
+" Open vista finder based on coc
+nnoremap <silent> <leader>vfc :Vista finder fzf:coc<CR>
+
+" Open vista finder based on ctags
+nnoremap <silent> <leader>vft :Vista finder fzf:ctags<CR>
+
+" ==========
+" Quickscope
+" ==========
+"
+" Trigger highlighting only when pressing the keys specified in the array
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']

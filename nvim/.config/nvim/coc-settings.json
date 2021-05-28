@@ -1,4 +1,12 @@
 {
 	"diagnostic.checkCurrentLine": true,
-	"highlight.colorNames.enable": false
+	"highlight.colorNames.enable": false,
+	"languageserver": {
+		"nix": {
+			"command": "rnix-lsp",
+			"filetypes": [
+				"nix"
+			]
+		}
+	}
 }
