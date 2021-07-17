@@ -16,7 +16,7 @@ export ZSH="/home/fahmi/.oh-my-zsh"
 
 # Plugins
 plugins=(git vi-mode direnv fzf fzf-tab z tmux ubuntu zsh-autosuggestions zsh-syntax-highlighting
-	nix-zsh-completions)
+	nix-zsh-completions autoupdate)
 
 
 source $ZSH/oh-my-zsh.sh
@@ -74,6 +74,9 @@ export FZF_DEFAULT_OPTS="-m --reverse --border --preview 'bat --theme ansi-dark 
 #=================
 # Programming vars
 #=================
+
+#
+#export JAVA_HOME=~/.nix-profile
 
 # Spark
 # -----
@@ -177,6 +180,21 @@ alias cat='bat --theme ansi'
 
 # Alias cat to syscat
 alias syscat='/bin/cat'
+
+#===========
+# fd aliases
+#===========
+
+# Set color option to always so that colored outout is retained even when piped
+alias fd='fd --color always'
+
+#================
+# ripgrep aliases
+#================
+
+# Set color option to always so that colored output is retained even when piped
+# Also set the pcre2 flog to enable perl regex features
+alias rg='rg --pcre2 --color always'
 
 #=============
 # grep aliases

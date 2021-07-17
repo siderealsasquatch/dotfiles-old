@@ -66,17 +66,25 @@ call plug#end()
 " General
 " -------
 
-"let g:python3_host_prog = '/usr/bin/python3'
-"let g:python3_host_prog = '/usr/bin/env python'
-
 " Remap Escape key
-imap jk <Esc>
+" No longer need to set this as I've remapped escape to capslock
+"imap jk <Esc>
+"
+
+" Set the maximum memory for pattern matching
+set mmp=100000
 
 " Disable mouse support
 set mouse=""
 
 " Enable cursor line
 set cursorline
+
+" Make searches case insensitive
+set ignorecase
+
+" Enable smartcase searching
+set smartcase
 
 " Enable line numbers
 set number
@@ -484,8 +492,8 @@ let g:floaterm_title = ''
 " -----------
 
 " Open new floaterm instance
-nnoremap <silent> <F6> :FloatermNew --height=0.8 --width=0.7 --autoclose=2<CR>
-tnoremap <silent> <F6> <C-\><C-n>:FloatermNew --height=0.8 --width=0.7 --autoclose=2<CR>
+nnoremap <silent> <F6> :FloatermNew --height=0.8 --width=0.8 --autoclose=2<CR>
+tnoremap <silent> <F6> <C-\><C-n>:FloatermNew --height=0.8 --width=0.8 --autoclose=2<CR>
 
 "Open new terminal instance on right side (this is specifically for using a REPL other
 "than the ones already specified)
@@ -513,10 +521,10 @@ nnoremap <silent> <F4> :FloatermKill!<CR>
 tnoremap <silent> <F4> <C-\><C-n>:FloatermKill!<CR>
 
 " Send current line to current instance of floaterm
-nnoremap <C-c><C-c> :FloatermSend<CR>
+nnoremap <C-c><C-v> :FloatermSend<CR>
 
 " Send current selection to current instance of floaterm
-vnoremap <C-c><C-c> :'<,'>FloatermSend<CR>
+vnoremap <C-c><C-v> :'<,'>FloatermSend<CR>
 
 " Send entire buffer to current instance of floaterm
 nnoremap <C-c><C-x> :%FloatermSend<CR>
@@ -532,10 +540,10 @@ nnoremap <silent> <leader>tpi :FloatermNew --position=bottom --width=0.9 --heigh
 "nnoremap <silent> <leader>tpi :FloatermNew --position=bottom --width=0.7 --height=0.4 --autoclose=2<CR>
 
 " Open a floaterm instance containing lazygit.
-nnoremap <silent> <leader>tg :FloatermNew --width=0.7 --height=0.8 --autoclose=2 lazygit<CR>
+nnoremap <silent> <leader>tg :FloatermNew --width=0.8 --height=0.8 --autoclose=2 lazygit<CR>
 
 " Open a floaterm instance containing ranger.
-nnoremap <silent> <leader>tr :FloatermNew --autoclose=2 --height=0.8 --width=0.7 ranger<CR>
+nnoremap <silent> <leader>tr :FloatermNew --autoclose=2 --height=0.8 --width=0.8 ranger<CR>
 
 " =========
 " NERD tree
@@ -600,6 +608,9 @@ let g:vimade.fadelevel = 0.3
 
 " Enable labels for sneak
 let g:sneak#label = 1
+
+" Have case sensitivity be determined by vim's ignorecase and smartcase options
+let g:sneak#use_ic_scs = 1
 
 " =====
 " Vista
