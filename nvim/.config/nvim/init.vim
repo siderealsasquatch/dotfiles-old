@@ -14,6 +14,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'honza/vim-snippets'
+Plug 'dense-analysis/ale'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
@@ -240,13 +242,13 @@ endif
 set background=dark
 
 " Set the vim colorscheme
-"let g:material_terminal_italics = 1
-"let g:material_theme_style = 'ocean'
+let g:material_terminal_italics = 1
+let g:material_theme_style = 'ocean'
 "let g:airline_theme = 'spaceduck'
-let g:tokyonight_style = 'night'
-let g:tokyonight_enable_italic = 1
+"let g:tokyonight_style = 'night'
+"let g:tokyonight_enable_italic = 1
 "let g:onedark_terminal_italics = 1
-color tokyonight
+color material
 
 "let g:onedark_terminal_italics = 1
 "color onedark
@@ -268,6 +270,7 @@ let g:coc_global_extensions = [
 	\ 'coc-marketplace',
 	\ 'coc-highlight',
 	\ 'coc-yank',
+	\ 'coc-snippets',
 	\ 'coc-prettier',
 	\ 'coc-json',
 	\ 'coc-sql',
@@ -412,6 +415,37 @@ nnoremap <silent><nowait> <space>cp  :<C-u>CocListResume<CR>
 
 " Binding for the coc-yank plugin
 nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<CR>
+
+" ===
+" ALE
+" ===
+
+" ALE settings
+" ------------
+
+" Don't lint when a file has just been opened
+let g:ale_lint_on_enter = 0
+
+" Lint on save
+let g:ale_lint_on_text_changed = 'never'
+
+" Apply formatters on save
+let g:ale_fix_on_save = 1
+
+" ALE linters
+" -----------
+let g:ale_linters = {
+	\ 'python': ['flake8']
+\}
+
+" ALE formatters
+" --------------
+let g:ale_fixers = {
+	\ '*': ['remove_trailing_lines', 'trim_whitespace'],
+	\ 'python': ['yapf', 'isort']
+	"\ 'python': ['black', 'isort']
+	"\ 'python': ['autopep8', 'isort']
+\}
 
 " =======
 " Airline

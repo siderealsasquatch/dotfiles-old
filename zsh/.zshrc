@@ -161,8 +161,8 @@ bindkey '^ ' autosuggest-accept
 #===========
 
 # Alias lsd to ls
-alias ls='lsd'
-#alias ls='exa --icons'
+#alias ls='lsd'
+alias ls='exa --icons'
 
 #alias ls='ls --color=auto'
 alias ll='ls -alF'
