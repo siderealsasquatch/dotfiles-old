@@ -30,6 +30,9 @@ Plug 'junegunn/vim-easy-align'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'liuchengxu/vista.vim'
 Plug 'unblevable/quick-scope'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'vim-pandoc/vim-rmarkdown'
 
 " Color schemes
 " -------------
@@ -275,7 +278,8 @@ let g:coc_global_extensions = [
 	\ 'coc-json',
 	\ 'coc-sql',
 	\ 'coc-sh',
-	\ 'coc-jedi'
+	\ 'coc-jedi',
+	\ 'coc-r-lsp'
 \]
 
 " Figure out what all these do later
@@ -435,14 +439,16 @@ let g:ale_fix_on_save = 1
 " ALE linters
 " -----------
 let g:ale_linters = {
-	\ 'python': ['flake8']
+	\ 'python': ['flake8'],
+	\ 'R': ['lintr']
 \}
 
 " ALE formatters
 " --------------
 let g:ale_fixers = {
 	\ '*': ['remove_trailing_lines', 'trim_whitespace'],
-	\ 'python': ['yapf', 'isort']
+	\ 'python': ['yapf', 'isort'],
+	\ 'R': ['styler']
 	"\ 'python': ['black', 'isort']
 	"\ 'python': ['autopep8', 'isort']
 \}
@@ -680,3 +686,13 @@ nnoremap <silent> <leader>vft :Vista finder fzf:ctags<CR>
 "
 " Trigger highlighting only when pressing the keys specified in the array
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
+" =========
+" RMarkdown
+" =========
+
+" Disable folding and spellchecking with vim-rmarkdown
+let g:pandoc#modules#disabled = ['folding', 'spell']
+
+" Disable concealing
+let g:pandoc#syntax#conceal#use = 0

@@ -11,13 +11,9 @@ export ZSH="/home/fahmi/.oh-my-zsh"
 # Theme
 #ZSH_THEME="spaceship"
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-
 # Plugins
-plugins=(git vi-mode direnv fzf fzf-tab z tmux ubuntu zsh-autosuggestions zsh-syntax-highlighting
+plugins=(git vi-mode direnv fzf fzf-tab tmux ubuntu zsh-autosuggestions zsh-syntax-highlighting
 	nix-zsh-completions autoupdate)
-
 
 source $ZSH/oh-my-zsh.sh
 
@@ -186,7 +182,7 @@ alias syscat='/bin/cat'
 #===========
 
 # Set color option to always so that colored outout is retained even when piped
-alias fd='fd --color always'
+#alias fd='fd --color auto'
 
 #================
 # ripgrep aliases
@@ -195,6 +191,7 @@ alias fd='fd --color always'
 # Set color option to always so that colored output is retained even when piped
 # Also set the pcre2 flog to enable perl regex features
 alias rg='rg --pcre2 --color always'
+#alias rg='rg --pcre2'
 
 #=============
 # grep aliases
@@ -331,8 +328,8 @@ gitrepo() {
 # Python
 #-------
 
-# Update all pip packages
-alias pipud="pip freeze | awk -F== '{print $1}' | xargs pip install -U"
+# Update all pip packages that haven't been installed via nix
+alias pipud="pip freeze | awk -F== '!/@/ {print $1}' | xargs pip install -U"
 
 # Install python version with pyenv with CONFIGURE_OPTS set to '--enable-shared'
 #alias pyenv_install="env CONFIGURE_OPTS=--enable-shared pyenv install"
@@ -449,10 +446,15 @@ relink_omp_ini() {
 
 # Nix
 # ---
-if [ -e /home/fahmi/.nix-profile/etc/profile.d/nix.sh ]; then . /home/fahmi/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+if [ -e /home/fahmi/.nix-profile/etc/profile.d/nix.sh ];then
+	. /home/fahmi/.nix-profile/etc/profile.d/nix.sh;
+fi # added by Nix installer
 
 # Starship prompt
 eval "$(starship init zsh)"
+
+# zoxide
+eval "$(zoxide init zsh)"
 
 # any-nix-shell
 any-nix-shell zsh | source /dev/stdin

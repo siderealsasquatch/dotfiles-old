@@ -11,6 +11,9 @@
 # This is now handled in the .Renviron file
 #options(lib='~/.Rlibs')
 
+# Always download binaries if available
+options(install.packages.compile.from.source = "never")
+
 # Don't automatically convert strings to factors
 options(stringsAsFactors = F)
 
