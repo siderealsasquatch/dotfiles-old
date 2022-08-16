@@ -1,2 +1,5 @@
 # Ignore the netrwhist file
 nvim/.config/nvim/.netrwhist
+
+# Ignore all tag files
+*tag*
