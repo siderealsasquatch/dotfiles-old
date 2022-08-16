@@ -30,6 +30,9 @@ Plug 'junegunn/vim-easy-align'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'liuchengxu/vista.vim'
 Plug 'unblevable/quick-scope'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'vim-pandoc/vim-rmarkdown'
 
 " Color schemes
 " -------------
@@ -47,6 +50,8 @@ Plug 'haishanh/night-owl.vim'
 Plug 'pineapplegiant/spaceduck', { 'branch': 'main'  }
 Plug 'bluz71/vim-moonfly-colors'
 Plug 'ghifarit53/tokyonight-vim'
+Plug 'haishanh/night-owl.vim'
+Plug 'macguirerintoul/night_owl_light.vim'
 
 " Fonts
 " -----
@@ -242,13 +247,13 @@ endif
 set background=dark
 
 " Set the vim colorscheme
-let g:material_terminal_italics = 1
-let g:material_theme_style = 'ocean'
+"let g:material_terminal_italics = 1
+"let g:material_theme_style = 'ocean'
 "let g:airline_theme = 'spaceduck'
 "let g:tokyonight_style = 'night'
 "let g:tokyonight_enable_italic = 1
 "let g:onedark_terminal_italics = 1
-color material
+color night-owl
 
 "let g:onedark_terminal_italics = 1
 "color onedark
@@ -275,7 +280,8 @@ let g:coc_global_extensions = [
 	\ 'coc-json',
 	\ 'coc-sql',
 	\ 'coc-sh',
-	\ 'coc-jedi'
+	\ 'coc-jedi',
+	\ 'coc-r-lsp'
 \]
 
 " Figure out what all these do later
@@ -307,12 +313,17 @@ endif
 
 " Use tab for trigger completion
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-function! s:check_back_space() abort
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! s:CheckBackspace() abort
 	let col = col('.') - 1
 	return !col || getline('.')[col - 1] =~# '\s'
 endfunction
@@ -323,11 +334,6 @@ if has('nvim')
 else
 	inoremap <silent><expr> <c-@> coc#refresh()
 endif
-
-" Make <CR> auto-select the first completion item and notify coc.nvim to format on enter,
-" <CR> could be remapped by another vim plugin
-inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm()
-	\ : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -341,15 +347,13 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call ShowDocumentation()<CR>
 
-function! s:show_documentation()
-	if (index(['vim','help'], &filetype) >= 0)
-		execute 'h '.expand('<cword>')
-	elseif (coc#rpc#ready())
+function! s:ShowDocumentation()
+	if CocAction('hasProvider', 'hover')
 		call CocActionAsync('doHover')
 	else
-		execute '!' . &keywordprg . " " . expand('<cword>')
+		call feedkeys('K', 'in')
 	endif
 endfunction
 
@@ -360,8 +364,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <leader>fc  <Plug>(coc-format-selected)
-nmap <leader>fc  <Plug>(coc-format-selected)
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
 
 " Applying codeAction to the selected region.
 " " Example: `<leader>aap` for current paragraph
@@ -377,6 +381,16 @@ nmap <leader>qf  <Plug>(coc-fix-current)
 " Requires 'textDocument/selectionRange' support of language server.
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
@@ -435,16 +449,18 @@ let g:ale_fix_on_save = 1
 " ALE linters
 " -----------
 let g:ale_linters = {
-	\ 'python': ['flake8']
+	\ 'python': ['flake8'],
+	\ 'R': ['lintr']
 \}
 
 " ALE formatters
 " --------------
 let g:ale_fixers = {
 	\ '*': ['remove_trailing_lines', 'trim_whitespace'],
-	\ 'python': ['yapf', 'isort']
+	\ 'python': ['yapf', 'isort'],
 	"\ 'python': ['black', 'isort']
 	"\ 'python': ['autopep8', 'isort']
+	\ 'R': ['styler']
 \}
 
 " =======
@@ -680,3 +696,13 @@ nnoremap <silent> <leader>vft :Vista finder fzf:ctags<CR>
 "
 " Trigger highlighting only when pressing the keys specified in the array
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
+" ===============
+" RMarkdown stuff
+" ===============
+
+" Disable folding and spellchecking
+let g:pandoc#modules#disabled = ['folding', 'spell']
+
+" Turn off concealing
+let g:pandoc#syntax#conceal#use = 0

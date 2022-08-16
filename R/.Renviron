@@ -1,0 +1,2 @@
+# Set package installation directory for current user
+R_LIBS_USER=~/.Rlibs

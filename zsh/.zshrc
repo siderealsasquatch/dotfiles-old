@@ -15,9 +15,10 @@ export ZSH="/home/fahmi/.oh-my-zsh"
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
 # Plugins
-plugins=(git vi-mode direnv fzf fzf-tab z tmux ubuntu zsh-autosuggestions zsh-syntax-highlighting
+#plugins=(git vi-mode direnv fzf fzf-tab z tmux ubuntu zsh-autosuggestions zsh-syntax-highlighting
+	#nix-zsh-completions autoupdate)
+plugins=(git vi-mode direnv fzf fzf-tab tmux ubuntu zsh-autosuggestions zsh-syntax-highlighting
 	nix-zsh-completions autoupdate)
-
 
 source $ZSH/oh-my-zsh.sh
 
@@ -44,6 +45,9 @@ export MAKEFLAGS="-j$(nproc)"
 # Add ~/bin to the system path
 export PATH=~/bin:~/.local/bin:$PATH
 
+# Add mssql-tools to the path
+export PATH=$PATH:/opt/mssql-tools/bin
+
 #=================
 # WSL related vars
 #=================
@@ -69,7 +73,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='fd -t d -HL -E "{.git,__py*}/*"'
 
 # Set default options for the fzf app
-export FZF_DEFAULT_OPTS="-m --reverse --border --preview 'bat --theme ansi-dark {}'"
+export FZF_DEFAULT_OPTS="-i -m --reverse --border --preview 'bat --theme ansi {}'"
 
 #=================
 # Programming vars
@@ -136,7 +140,14 @@ export PATH=~/.npm-global/bin:${PATH}
 # -------------------
 
 # Set ctrl+space to accept current suggestion (Windows only?)
-bindkey '^ ' autosuggest-accept
+# Not sure if I even need this anymore. Will comment out for now.
+#bindkey '^ ' autosuggest-accept
+
+# Set ctrl+f to move forward one word
+bindkey '^f' forward-word
+
+# Set ctrl+b to move backward one word
+bindkey '^b' backward-word
 
 # fzf
 # ---
@@ -409,9 +420,9 @@ cdl() {
 # Clear screen and list directory contents
 alias cls='clear && ls'
 
-#==============#
-# Work aliases #
-#==============#
+#=============
+# Work aliases
+#=============
 
 # OMP ini file symlinks
 #----------------------
@@ -436,6 +447,19 @@ relink_omp_ini() {
 	#ln -sf ${license_dir}/*.{xml,asl} .
 #}
 
+#====================
+# Specialized aliases
+#====================
+
+# shuf command stuff
+# ------------------
+
+# Generate seed
+get_seeded_random() {
+	seed="$1"
+	openssl enc -aes-256-ctr -pass pass:"$seed" -nosalt </dev/zero 2>/dev/null
+}
+
 #================================
 # Stuff for command line programs
 #================================
@@ -453,6 +477,9 @@ if [ -e /home/fahmi/.nix-profile/etc/profile.d/nix.sh ]; then . /home/fahmi/.nix
 
 # Starship prompt
 eval "$(starship init zsh)"
+
+# zoxide
+eval "$(zoxide init zsh)"
 
 # any-nix-shell
 any-nix-shell zsh | source /dev/stdin
