@@ -12,11 +12,6 @@ export ZSH="/home/fahmi/.oh-my-zsh"
 #ZSH_THEME="spaceship"
 
 # Plugins
-<<<<<<< HEAD
-#plugins=(git vi-mode direnv fzf fzf-tab z tmux ubuntu zsh-autosuggestions zsh-syntax-highlighting
-	#nix-zsh-completions autoupdate)
-=======
->>>>>>> refs/remotes/origin/windows-dots
 plugins=(git vi-mode direnv fzf fzf-tab tmux ubuntu zsh-autosuggestions zsh-syntax-highlighting
 	nix-zsh-completions autoupdate)
 
