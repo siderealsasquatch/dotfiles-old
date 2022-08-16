@@ -697,12 +697,12 @@ nnoremap <silent> <leader>vft :Vista finder fzf:ctags<CR>
 " Trigger highlighting only when pressing the keys specified in the array
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
-" ===============
-" RMarkdown stuff
-" ===============
+" =========
+" RMarkdown
+" =========
 
-" Disable folding and spellchecking
+" Disable folding and spellchecking with vim-rmarkdown
 let g:pandoc#modules#disabled = ['folding', 'spell']
 
-" Turn off concealing
+" Disable concealing
 let g:pandoc#syntax#conceal#use = 0
