@@ -12,14 +12,14 @@
 config_nvim() {
 	nvim_dir_path="$1"
 
-	for subdir in autoload plugged; do
+	for subdir in after/plugin lua/lsp; do
 		nvim_subdirs="${nvim_dir_path}/${subdir}"
 		if [[ -d "${nvim_subdirs}" ]]; then
 			rm -rf "${nvim_subdirs}"/*
 		fi
 	done
 
-	init_vim_path="${nvim_dir_path}/init.vim"
+	init_vim_path="${nvim_dir_path}/init.lua"
 	if [[ -f "${init_vim_path}" ]]; then
 		rm "${init_vim_path}"
 	fi
@@ -62,7 +62,7 @@ create_dir_struct() {
 	full_path_basename="$(basename ${full_path})"
 
 	if [[ "${full_path_basename}" == nvim ]]; then
-		mkdir -p "${full_path}"/{autoload,plugged}
+		mkdir -p "${full_path}"/{after/plugin,lua/lsp}
 	elif [[ "${full_path_basename}" == polybar ]]; then
 		mkdir -p "${full_path}"/modules
 	else
@@ -79,10 +79,9 @@ TARGET_DIR="/home/fahmi"
 # applications to stow
 CONTENTS=( .bashrc .zshrc .config/nvim .config/i3 .config/dunst .config/mpd \
 		.config/ncmpcpp .config/rofi .config/kitty .config/ranger \
-		.config/compton .config/polybar .Rprofile .inputrc .tmux.conf .Xmodmap \
-		.ycm_extra_conf.py )
-APPS=( bash zsh nvim i3 dunst mdp ncmpcpp rofi kitty ranger compton R \ 
-	polybar readline tmux xmodmap ycm_extra_conf )
+		.config/compton .config/polybar .Rprofile .inputrc .tmux.conf .Xmodmap )
+APPS=( bash zsh nvim i3 dunst mdp ncmpcpp rofi kitty ranger compton R \
+	polybar readline tmux xmodmap )
 
 # Stow the contents
 END=$(( ${#APPS[@]} - 1 ))
@@ -96,5 +95,5 @@ for i in $(seq 0 $END); do
 	if [[ -f "${FULL_PATH}" ]]; then
 		rm "${FULL_PATH}"
 	fi
-	stow ${APPS[$i]}
+	stow "${APPS[$i]}"
 done
