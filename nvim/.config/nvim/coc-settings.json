@@ -1,4 +1,14 @@
 {
 	"diagnostic.checkCurrentLine": true,
-	"highlight.colorNames.enable": false
+	"highlight.colorNames.enable": false,
+	"jedi.diagnostics.enable": false,
+	"snippets.userSnippetsDirectory": "~/.config/nvim/snips",
+	"languageserver": {
+		"nix": {
+			"command": "rnix-lsp",
+			"filetypes": [
+				"nix"
+			]
+		}
+	}
 }

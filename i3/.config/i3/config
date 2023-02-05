@@ -223,13 +223,15 @@ set_from_resource $critical-color i3wm.color5 #f0f0f0
 #================
 
 # Set background image
-exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers/vector/lion_colorful_triangle_132322_1920x1080.jpg
+# This is now handled by the polybar pywal script.
+#exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers/vector/lion_colorful_triangle_132322_1920x1080.jpg
 
 # Have wal use the last colorscheme
 exec --no-startup-id wal -R
 
 # Enable compton with transparency
-exec --no-startup-id compton --backend glx --blur-method kawase --blur-strength 10 --config ~/.config/compton/compton.conf
+#exec --no-startup-id compton --backend glx --blur-method kawase --blur-strength 8 --config ~/.config/compton/compton.conf
+exec --no-startup-id picom
 
 # Window stuff
 #-------------
@@ -251,7 +253,7 @@ client.background       $bg-color
 #--------
 
 # Set gaps
-gaps inner 20
+gaps inner 10
 gaps outer 0
 
 #================
@@ -289,7 +291,10 @@ for_window [class="R*" title = "^R Graphics*"] floating enable
 #===================
 
 # Start polybar
-exec_always --no-startup-id ~/.config/polybar/launch.sh
+#exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec_always --no-startup-id ~/.config/polybar/launch.sh --colorblocks
+exec_always --no-startup-id ~/.config/polybar/colorblocks/scripts/pywal.sh \
+	~/Pictures/wallpapers/landscape/evening-landscape-minimal-4k-kl-1920x1080.jpg
 
 # Start caffeine
 exec --no-startup-id caffeine
@@ -304,6 +309,9 @@ exec --no-startup-id nm-applet
 
 # Start pa-applet
 exec --no-startup-id pa-applet
+
+# Start syncthing-gtk
+exec --no-startup-id syncthing-gtk
 
 # Start steam in silent mode
 #exec --no-startup-id /usr/bin/steam-runtime -silent %U
@@ -372,7 +380,7 @@ bindsym $mod+Shift+m exec "maim -su ~/Pictures/screenshots/screenshot_$(date +%F
 bindsym $mod+Control+m exec "maim -su | xclip -selection clipboard -t image/png"
 
 # Get screenshot of currently active window
-bindsym $mod+n exec "maim -iu $(xdotool getactivewindow) ~/Pictures/screenshots/screenshot_$(date +%F_%T).png"
+bindsym $mod+n exec "maim -ui $(xdotool getactivewindow) ~/Pictures/screenshots/screenshot_$(date +%F_%T).png"
 
 # Get screenshot of currently active window and copy it to the clipboard
-bindsym $mod+Shift+n "maim -iu $(xdotool getactivewindow) | xclip -selection clipboard -t image/png"
+bindsym $mod+Shift+n exec "maim -ui $(xdotool getactivewindow) | xclip -selection clipboard -t image/png"

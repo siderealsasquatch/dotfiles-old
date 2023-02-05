@@ -9,16 +9,15 @@ export ZSH="/home/fahmi/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #ZSH_THEME="powerlevel10k/powerlevel10k"
-ZSH_THEME="spaceship"
+#ZSH_THEME="spaceship"
 
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
+# Examp le format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-#plugins=(git vi-mode pyenv pip autojump archlinux tmux)
-#plugins=(git vi-mode pyenv z archlinux tmux zsh-autosuggestions zsh-syntax-highlighting fzf fzf-tab)
-plugins=(git vi-mode asdf z archlinux tmux zsh-autosuggestions zsh-syntax-highlighting fzf fzf-tab)
+plugins=(git vi-mode autoupdate tmux zsh-autosuggestions zsh-syntax-highlighting fzf
+	fzf-tab direnv nix-shell nix-zsh-completions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -50,15 +49,10 @@ export PATH="/usr/lib/ccache/bin:$PATH"
 # Make it so that steam closes to the tray
 export STEAM_FRAME_FORCE_CLOSE=1
 
-# pyenv
+# node
 # ----
 
-# Set pyenv home and add to path
-#export PYENV_ROOT="$HOME/.pyenv"
-#export PATH="$PYENV_ROOT/bin:$PATH"
-
-# Disable venv prompt as the zsh prompts I use handle it.
-#export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+export PATH=~/.npm-global/bin:${PATH}
 
 # fzf
 # ---
@@ -74,7 +68,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='fd -t d -HL -E "{.git,__py*}"'
 
 # Set default options for the fzf app
-export FZF_DEFAULT_OPTS="-m --reverse --border"
+export FZF_DEFAULT_OPTS="-i -m --reverse --border --preview 'bat --theme ansi {}'"
 
 # Final path entry
 # ----------------
@@ -115,7 +109,11 @@ setopt extended_glob
 # -------------------------------
 
 # Ctrl+space to accept current suggestion
-#bindkey '^p' autosuggest-accept
+# Not sure if I really need this anymore. Will comment out for now.
+#bindkey '^ ' autosuggest-accept
+
+# Ctrl+f to move forward by one word. This makes it easier to use the autosuggest plugin.
+bindkey '^f' forward-word
 
 ###########
 # Aliases #
@@ -125,10 +123,11 @@ setopt extended_glob
 # ls
 #===
 
-#alias ls='ls --color=auto'
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+#alias ls='lsd'
+alias ls='exa --icons'
+#alias ll='ls -alF'
+#alias la='ls -A'
+#alias l='ls -CF'
 alias l.='ls -d .*(/,.,@)' # Read more about zsh glob qualifiers (i.e., everything in parentheses)
 alias ll='ls -l'
 
@@ -137,7 +136,10 @@ alias ll='ls -l'
 #====
 
 # Replace cat with bat and set it to the terminal theme
-alias cat='bat --theme ansi-dark'
+alias cat='bat --theme ansi'
+
+# Have the system cat aliased to syscat
+alias syscat='/bin/cat'
 
 #=====
 # grep
@@ -148,6 +150,21 @@ alias grep='grep --color=auto'
 
 # grep with Perl regex syntax
 alias greP='grep -P'
+
+#========
+# ripgrep
+#========
+
+# Enable PCRE2 style regexes by default and make it so that colored output is retained
+# even when piped
+alias rg='rg --pcre2 --color always'
+
+#===
+# fd
+#===
+
+# Make it so that colored output is retained even when piped
+alias fd='fd --color always'
 
 #========
 # lazygit
@@ -165,9 +182,6 @@ alias lazygit='env TERM=xterm-kitty lazygit'
 
 # Make pacman display colored output
 alias pacman='pacman --color auto'
-
-# Lock yay to the aur
-alias yay='yay --aur'
 
 #======================
 # General purpose stuff
@@ -291,24 +305,11 @@ pipud() {
 # Python
 #-------
 
-# Note: All of the pyenv stuff is handled by the oh-my-zsh pyenv plugin so I no longer
-# need all of the lines for pyenv
+# go
+# --
 
-# Alias for pyenv install that ensures that the PYTHON_CONFIGURE_OPTS env variable is set
-# to "--enable-shared"
-#alias pyenv_install='env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install'
-
-# Alias for pyenv virtualenv that ensures that the PYTHON_CONFIGURE_OPTS env variable is
-# set to "--enable-shared"
-# This one actually might have no effect. Will comment it out for the time being.
-#alias pyenv_venv='env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv virtualenv'
-
-# Set virtualenvwrapper env variables
-export WORKON_HOME=~/.py-venvs
-
-# Source virtualenvwrapper script
-# Find a cleaner way of doing this
-. "$(asdf where python)"/bin/virtualenvwrapper.sh
+# Set GOPATH
+export GOPATH="/home/fahmi/.go"
 
 # R
 # -
@@ -373,14 +374,14 @@ cdl() {
 }
 
 # ls but with directories displayed before files
-lsd() {
-	ls --group-directories-first "$@"
-}
+#lsd() {
+	#ls --group-directories-first "$@"
+#}
 
 # Combine cdl and lsd
-cdlsd() {
-	cd "$@" && ls --group-directories-first
-}
+#cdlsd() {
+	#cd "$@" && ls --group-directories-first
+#}
 
 # Clear screen and list directory contents
 alias cls='clear && ls'
@@ -398,7 +399,32 @@ alias cls='clear && ls'
 # -
 
 # Prevent z from resolving symlinks
-$_Z_NO_RESOLVE_SYMLINKS=true
+#$_Z_NO_RESOLVE_SYMLINKS=true
+$_Z_NO_RESOLVE_SYMLINKS=false
+
+# nnn
+# ---
+
+# Work on this later
+
+# Set options for nnn
+export NNN_OPTS="adEr"
+
+# Set FIFO
+#export NNN_FIFO="/tmp/nnn.fifo"
+
+# Enable plugins
+export NNN_PLUG="v:imgview;f:fzopen;p:preview-tui"
+
+# Have preview-tui use pistol
+# export USE_PISTOL=1
+
+# Have the preview-tui splits be vertical
+export SPLIT=v
+
+# Enable kitty previews
+#export TMPDIR="/tmp"
+export KITTY_LISTEN_ON=1
 
 #================
 # Aesthetic stuff
@@ -408,3 +434,20 @@ $_Z_NO_RESOLVE_SYMLINKS=true
 # Call cat via absolute path since 'bat' is aliased to 'cat'
 #(cat ~/.cache/wal/sequences &)
 (/usr/bin/cat ~/.cache/wal/sequences &)
+
+###############
+# Final inits #
+###############
+
+# Miniconda
+[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
+
+# Init starship prompt
+eval "$(starship init zsh)"
+
+# Init zoxide
+eval "$(zoxide init zsh)"
+
+# Init any-nix-shell
+#any-nix-shell zsh --info-right | source /dev/stdin
+any-nix-shell zsh | source /dev/stdin

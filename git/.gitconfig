@@ -7,3 +7,11 @@
 
 [delta]
 	syntax-theme = base16
+[credential]
+	helper = cache
+[safe]
+	directory = /mnt/windows-shared/School Stuff
+	directory = /mnt/windows-shared/School Stuff/s2_uii/tesis/code
+	directory = /mnt/windows-shared/School Stuff/s2_uii/tesis/code/models/COVID19-Fake-News-Detection-Using-BERT
+	directory = /mnt/windows-shared/School Stuff/s2_uii/tesis/code/models/COVID19-Fake-News-Detection-Using-BERT
+	directory = *
